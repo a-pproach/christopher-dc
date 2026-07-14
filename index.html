@@ -388,18 +388,32 @@
           <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">We Wear Our Pride</h1>
           <p class="tagline" style="font-size: 1rem; margin-bottom: 1.5rem;">Australia's Sporting Anthem</p>
           
-          <div style="background: #f8f7f5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-            <p style="font-size: 0.95rem; color: #555; margin-bottom: 1rem; line-height: 1.7;">
-              One song. Five national teams hidden in just one line alone. Are there more? Summer Olympics, Winter Olympics, Commonwealth Games sports woven into single verbs. And one team that somehow got left out entirely.
+          <div style="background: #f8f7f5; border-radius: 12px; padding: 1.8rem; margin-bottom: 2rem;">
+            <p style="font-size: 1.05rem; color: #333; line-height: 1.9; margin-bottom: 0;">
+              A song that's fit for every sporting event Australia and Australians compete in.<br>
+              Every national team, every Olympics sport — both Summer &amp; Winter as well as those played at the Commonwealth Games is referenced 'poetically' somewhere in the lyrics.<br>
+              Can you spot them?<br>
+              Over five national teams woven into just one word alone!
             </p>
-            <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; font-weight: 500;">
-              This is the song I spent decades waiting for someone to write. Then I decided to write it myself.
-            </p>
-            <a href="https://wewearourpride.com.au" class="btn btn-primary">Explore the Treasure Hunt →</a>
           </div>
+
+          <p style="font-size: 1.4rem; font-style: italic; color: #cc0000; font-weight: 600; margin: 1.5rem 0; text-align: center; letter-spacing: 0.01em;">"We Honour our Marsupials"</p>
+
+          <div style="text-align: center; margin: 1.5rem 0 2rem;">
+            <button onclick="toggleTeams(event)" style="background: #FFD700; color: #1a1a1a; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; animation: pulse 2s infinite; letter-spacing: 0.02em;">Click to see the 'hidden' teams</button>
+          </div>
+
+          <style>
+            @keyframes pulse {
+              0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); transform: scale(1); }
+              50% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0); transform: scale(1.03); }
+              100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); transform: scale(1); }
+            }
+          </style>
+
           
-          <div class="marsupials-reveal" onclick="toggleTeams(event)" style="margin-top: 2rem;">
-            <div class="marsupials-text" style="font-size: 1rem;">We honour our marsupials, their laughing swimming mates</div>
+          <div class="marsupials-reveal" onclick="toggleTeams(event)" style="margin-top: 2rem; border: none; background: none; box-shadow: none;">
+            
             <div class="teams" id="teamsReveal">
               <div class="team-tag">Kangaroos</div>
               <div class="team-tag">Wallabies</div>
@@ -407,10 +421,14 @@
               <div class="team-tag">Socceroos</div>
               <div class="team-tag">Hockeyroos</div>
             </div>
-            <div class="reveal-hint">↑ Click to see what's hidden</div>
+            
+          </div>
+
+          <div style="text-align: center; margin: 1.5rem 0;">
+            <a href="https://wewearourpride.com.au" class="btn btn-primary" style="display:inline-block; padding: 0.9rem 1.8rem; font-size: 1rem;">Explore the sports treasure hunt in the lyrics here →</a>
           </div>
           
-          <div class="button-group" style="margin-top: 2rem; justify-content: center;">
+          <div class="button-group" id="wwopButtons" style="margin-top: 1rem; justify-content: center; display: none;">
             <a href="https://open.spotify.com/track/15xz0zfMP6OxHGgRrLdBuN" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
             <a data-yt="true" href="https://youtu.be/uhvWFeAsQD0" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
           </div>
@@ -428,9 +446,25 @@
     <!-- OTHER ANTHEMS -->
     <section>
       <div class="container">
-        <h2>The Other Anthems</h2>
+        <h2>The Anthem Collection</h2>
         
         <div class="cards-grid">
+          <!-- Cheerin' at the G -->
+          <div class="card">
+            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
+              <img src="Cheerin__at_the_G.png" alt="Cheerin' at the G" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="card-content">
+              <div class="card-title">Cheerin' at the G</div>
+              <div class="card-genre">MCG Anthem</div>
+              <div class="card-description">Any stadium, any code. The sound of Australia cheering its heroes.</div>
+              <div class="button-group">
+                <a href="https://open.spotify.com/track/1izB1G3cNvQBYPPRf9fYro" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
+                <a data-yt="true" href="https://youtu.be/g0Vbqc31Aeg" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
+              </div>
+            </div>
+          </div>
+          
           <!-- Lang Park Loud -->
           <div class="card">
             <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
@@ -443,22 +477,6 @@
               <div class="button-group">
                 <a href="https://open.spotify.com/track/5TECicfRcR0izBix5rz9Rr" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
                 <a data-yt="true" href="https://youtu.be/nly7ZnQTCbY" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Roarin' and Cheerin' -->
-          <div class="card">
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="Roarin'and%20Cheerin'.png" alt="Roarin' and Cheerin'" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">Roarin' &amp; Cheerin'</div>
-              <div class="card-genre">MCG Anthem</div>
-              <div class="card-description">Any stadium, any code. The sound of Australia cheering its heroes.</div>
-              <div class="button-group">
-                <a href="https://open.spotify.com/track/1izB1G3cNvQBYPPRf9fYro" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
-                <a data-yt="true" href="https://youtu.be/-sNX2IG9-2c" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
               </div>
             </div>
           </div>
@@ -496,11 +514,13 @@
             <div class="card-content">
               <div class="card-title">Cowboys n Rockets</div>
               <div class="card-genre">Rock Ballad / Alt-Country</div>
-              <div class="card-description">Debut album. 8 tracks. Lead single "Something About You" — coming soon.</div>
+              <div class="card-description">Debut album. 8 tracks.</div>
               
-              <div style="margin: 1.5rem 0;">
-                <div style="font-size: 0.85rem; font-weight: 500; color: #444; margin-bottom: 0.75rem;">🎵 Preview: Something About You</div>
-                <audio controls style="width: 100%; border-radius: 8px; outline: none;">
+              <div style="margin: 1.2rem 0; padding: 1.2rem; background: #f0f7f3; border-radius: 10px; border-left: 4px solid #00843D;">
+                <div style="font-size: 1rem; font-weight: 700; color: #00843D; margin-bottom: 0.3rem;">LEAD SINGLE</div>
+                <div style="font-size: 1.15rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem;">"Something About You"</div>
+                <div style="font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; font-weight: 500;">🎵 Preview — hit play</div>
+                <audio controls style="width: 100%; height: 48px; border-radius: 10px; outline: none; accent-color: #00843D;">
                   <source src="Something%20About%20You%20preview.mp3" type="audio/mpeg">
                   Your browser does not support the audio player.
                 </audio>
@@ -643,7 +663,202 @@
   <script>
     function toggleTeams(e) {
       const teamsDiv = document.getElementById('teamsReveal');
+      const buttons = document.getElementById('wwopButtons');
       teamsDiv.classList.toggle('revealed');
+      if (buttons) {
+        buttons.style.display = teamsDiv.classList.contains('revealed') ? 'flex' : 'none';
+      }
+    }
+  </script>
+  
+</body>
+</html>          <!-- We're the Devils -->
+          <div class="card">
+            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
+              <img src="We're%20The%20Devils.png" alt="We're the Devils" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="card-content">
+              <div class="card-title">We're the Devils</div>
+              <div class="card-genre">Tasmania AFL Club Song</div>
+              <div class="card-description">Roar for the newest team. The spirit of Tasmania, raw and fearless.</div>
+              <div class="button-group">
+                <a data-yt="true" href="https://youtu.be/7aWg1qxu29s" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ALBUMS -->
+    <section>
+      <div class="container">
+        <h2>The Full Catalogue</h2>
+        
+        <div class="cards-grid">
+          <!-- Cowboys n Rockets -->
+          <div class="card" style="position: relative;">
+            <div class="card-coming-soon">Coming Soon</div>
+            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
+              <img src="Cowboys%20n%20Rockets%20artwork.png" alt="Cowboys n Rockets" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="card-content">
+              <div class="card-title">Cowboys n Rockets</div>
+              <div class="card-genre">Rock Ballad / Alt-Country</div>
+              <div class="card-description">Debut album. 8 tracks.</div>
+              
+              <div style="margin: 1.2rem 0; padding: 1.2rem; background: #f0f7f3; border-radius: 10px; border-left: 4px solid #00843D;">
+                <div style="font-size: 1rem; font-weight: 700; color: #00843D; margin-bottom: 0.3rem;">LEAD SINGLE</div>
+                <div style="font-size: 1.15rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem;">"Something About You"</div>
+                <div style="font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; font-weight: 500;">🎵 Preview — hit play</div>
+                <audio controls style="width: 100%; height: 48px; border-radius: 10px; outline: none; accent-color: #00843D;">
+                  <source src="Something%20About%20You%20preview.mp3" type="audio/mpeg">
+                  Your browser does not support the audio player.
+                </audio>
+              </div>
+              
+              <div class="button-group">
+                <a href="#cowboys-tracklist" class="btn btn-small">View Tracklist ↓</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Friends & Lovers -->
+          <div class="card">
+            <div class="card-image" style="background: linear-gradient(135deg, #d4a5c9 0%, #a8c4d4 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
+              <div style="font-size: 2rem;">🎵</div>
+              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Friends &amp; Lovers<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
+            </div>
+            <div class="card-content">
+              <div class="card-title">Friends &amp; Lovers</div>
+              <div class="card-genre">Pop / Soft Rock / Folk</div>
+              <div class="card-description">9 tracks. Nearly complete. Final single "Not Forgotten" in progress.</div>
+              <div class="button-group">
+                <a href="#" class="btn btn-small">View Tracklist</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Club Noir -->
+          <div class="card">
+            <div class="card-image" style="background: linear-gradient(135deg, #2c2c2c 0%, #4a3728 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
+              <div style="font-size: 2rem;">🎵</div>
+              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Club Noir<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
+            </div>
+            <div class="card-content">
+              <div class="card-title">Club Noir</div>
+              <div class="card-genre">Nick Cave / Leonard Cohen Territory</div>
+              <div class="card-description">7 tracks in progress. Darker acoustic universe. Building now.</div>
+              <div class="button-group">
+                <a href="#" class="btn btn-small">View Tracklist</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COWBOYS N ROCKETS TRACKLIST -->
+    <section id="cowboys-tracklist" style="padding: 2rem 0; background: #fff;">
+      <div class="container">
+        <h2 style="font-size: 1.4rem; text-align: left; margin-bottom: 1.5rem;">Cowboys n Rockets — Full Tracklist</h2>
+        <div style="max-width: 600px;">
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">1</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">Can't Count on Nobody</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">2</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">Out of Sight</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0; background: #fffbf7;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">3</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c; font-weight: 500;">Something About You</span>
+              <span style="margin-left: auto; background: #00843D; color: #fff; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500;">LEAD SINGLE</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">4</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">Cowboys n Rockets</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">5</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">I Believe in You</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">6</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">Reverie</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">7</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">I've Had a Dream</span>
+            </div>
+            <div style="display: flex; align-items: center; padding: 0.9rem 0;">
+              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">8</span>
+              <span style="font-size: 0.95rem; color: #2c2c2c;">Romance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PRESELL CD -->
+    <section>
+      <div class="container">
+        <div class="presell-block">
+          <h3>Collector's Edition CD — Limited Run</h3>
+          <p>Eight tracks: the four anthems + one song from each of four albums. Numbered edition. Exclusively available here.</p>
+          <a href="#" class="btn btn-primary">Register Your Interest</a>
+          <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">More details coming soon</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ABOUT -->
+    <section>
+      <div class="container">
+        <div class="about">
+          <h3>About</h3>
+          
+          <p>My first AFL Grand Final was 1972. Carlton v Richmond. 112,393 people roaring. I was there. I've been there for 30 Grand Finals in a row since — through eligibility criteria shifts, family logistics, work complications. My dad hasn't missed one since 1949. My brother and sister since 1972. No matter who's playing, it's our family pilgrimage.</p>
+          
+          <p>"When a hundred thousand voices come crashing into you" — that line from "Roarin' and Cheerin'" is literal. I've lived it.</p>
+          
+          <p>10 years ago I moved to a balcony literally 400m from the very centre of Suncorp Stadium itself. A venue that hosts rugby league, rugby union, soccer, and more — multiple codes, different scale (52,000, not 112,000), but still that same essential roar. And for decades, I felt the same absence. Crowds screaming, passion at full volume, and no song. No anthem. Nothing to sing back.</p>
+          
+          <p>Poet for 30 years. Never thought songwriting was mine to do. But the vacuum was too obvious. Australia's sports-mad culture had everything except what it needed: music to roar along to.</p>
+          
+          <p>So I wrote it. The anthems. The treasures hidden inside the lyrics. The national teams woven into five-word lines. The gap I'd felt since 1972, finally filled.</p>
+          
+          <p>Then I kept writing. More songs to sing with a high baritone, catchy hooks and choruses wrapped around poetic verses — that seems to be my thing. Hence the albums in production: no less than four of them, with more steadily being filled. <em>Living on the Rim</em> features the four anthems plus a couple more. <em>Cowboys n Rockets</em>. <em>Friends & Lovers</em>. <em>Club Noir</em>. And more coming.</p>
+          
+          <p>Keep popping back for updates.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="https://www.youtube.com/@ChristopherDCmusic" target="_blank" title="YouTube"><i class="fas fa-youtube"></i></a>
+        <a href="https://open.spotify.com/artist/5cufZRrSCZVToSJOj68mpA" target="_blank" title="Spotify"><i class="fas fa-spotify"></i></a>
+        <a href="https://www.instagram.com/christopherdcmusic" target="_blank" title="Instagram"><i class="fas fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@christopherdcmusic" target="_blank" title="TikTok"><i class="fas fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/christopherdcmusic" target="_blank" title="Facebook"><i class="fas fa-facebook"></i></a>
+      </div>
+      <p class="footer-text">&copy; 2026 Christopher DC. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    function toggleTeams(e) {
+      const teamsDiv = document.getElementById('teamsReveal');
+      const buttons = document.getElementById('wwopButtons');
+      teamsDiv.classList.toggle('revealed');
+      if (buttons) {
+        buttons.style.display = teamsDiv.classList.contains('revealed') ? 'flex' : 'none';
+      }
     }
   </script>
   
