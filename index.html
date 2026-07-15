@@ -373,7 +373,7 @@
     <div style="position:relative;width:100%;overflow:hidden;cursor:pointer;" onclick="shareLightning()" id="lightningBanner">
       <img id="lightningImg" src="christopher_dc_GIF.webp" alt="Christopher DC" style="width:100%;height:auto;display:block;">
     </div>
-    <div style="text-align:center;padding:0.4rem 1rem;font-size:0.82rem;color:#aaa;letter-spacing:0.02em;">⚡ Touch the lightning to share the spark with others</div>
+    <div style="text-align:center;padding:0.2rem 0;font-size:0.75rem;color:#cc0000;letter-spacing:0.01em;white-space:nowrap;">⚡ Touch the lightning to share the spark with others</div>
   </header>
   
   <main>
@@ -697,8 +697,15 @@
         <button onclick="shareVia('copy')" id="copyBtn" style="background:#666;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Copy Link</button>
         <button onclick="shareVia('native')" style="background:#ED8F04;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">More...</button>
       </div>
-      <button onclick="bringLightningHome()" id="a2hsBtn" style="width:100%;background:#2c2c2c;color:white;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;font-weight:600;cursor:pointer;margin-bottom:0.6rem;">⚡ Bring the lightning home</button>
-      <div id="a2hsInstructions" style="display:none;background:#f9f8f4;border-radius:8px;padding:0.75rem;margin-bottom:0.6rem;font-size:0.82rem;color:#555;text-align:center;">Tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong> to bring the lightning home 📱</div>
+      <div style="margin-bottom:0.6rem;">
+        <div style="font-size:0.8rem;color:#999;text-align:center;margin-bottom:0.4rem;">Keep the Lightning on your phone!</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+          <button onclick="saveToDevice('android')" style="background:#3ddc84;color:#1a1a1a;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Save to Android</button>
+          <button onclick="saveToDevice('iphone')" style="background:#000;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Save to iPhone</button>
+        </div>
+        <div id="androidInstructions" style="display:none;background:#f0fff4;border-radius:8px;padding:0.75rem;margin-top:0.5rem;font-size:0.82rem;color:#2c2c2c;text-align:center;">Installing... if nothing happens, tap <strong>More...</strong> above then <strong>"Add to Home Screen"</strong></div>
+        <div id="iphoneInstructions" style="display:none;background:#f9f8f4;border-radius:8px;padding:0.75rem;margin-top:0.5rem;font-size:0.82rem;color:#2c2c2c;text-align:center;">On iPhone: tap the <strong>Share</strong> button <span style="font-size:1rem;">⬆️</span> in Safari then tap <strong>"Add to Home Screen"</strong></div>
+      </div>
       <button onclick="closeShareModal()" style="width:100%;background:#f5f5f5;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;color:#666;cursor:pointer;">Cancel</button>
     </div>
   </div>
@@ -728,7 +735,9 @@
       setTimeout(function() { banner.classList.remove('flash'); }, 400);
       playThunder();
       generateQR();
-      document.getElementById('shareModal').style.display = 'flex';
+      setTimeout(function() {
+        document.getElementById('shareModal').style.display = 'flex';
+      }, 3000);
     }
 
     function closeShareModal() {
@@ -759,16 +768,18 @@
       }
     }
 
-    function bringLightningHome() {
-      if (deferredA2HS) {
-        deferredA2HS.prompt();
-        deferredA2HS.userChoice.then(function(r) {
-          if (r.outcome === 'accepted') document.getElementById('a2hsBtn').textContent = '⚡ Lightning delivered!';
-          deferredA2HS = null;
-        });
+    function saveToDevice(device) {
+      document.getElementById('androidInstructions').style.display = 'none';
+      document.getElementById('iphoneInstructions').style.display = 'none';
+      if (device === 'android') {
+        if (deferredA2HS) {
+          deferredA2HS.prompt();
+          deferredA2HS.userChoice.then(function(r) { deferredA2HS = null; });
+        } else {
+          document.getElementById('androidInstructions').style.display = 'block';
+        }
       } else {
-        var inst = document.getElementById('a2hsInstructions');
-        inst.style.display = inst.style.display === 'none' ? 'block' : 'none';
+        document.getElementById('iphoneInstructions').style.display = 'block';
       }
     }
 
@@ -787,23 +798,35 @@
     function playThunder() {
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-        var data = buf.getChannelData(0);
-        for (var i = 0; i < data.length; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 2);
+        var vol = 6, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
+        var effectiveGap = (gapMs / 1000) * (1 - overlapPct);
+        var now = ctx.currentTime;
+        for (var i = 0; i < rolls; i++) {
+          (function(startTime) {
+            var buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
+            var data = buf.getChannelData(0);
+            for (var j = 0; j < data.length; j++) {
+              data[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / data.length, 1.5);
+            }
+            var src = ctx.createBufferSource();
+            src.buffer = buf;
+            var gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.8, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
+            var filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = freq;
+            var shelf = ctx.createBiquadFilter();
+            shelf.type = 'lowshelf';
+            shelf.frequency.value = 100;
+            shelf.gain.value = 8;
+            src.connect(filter);
+            filter.connect(shelf);
+            shelf.connect(gain);
+            gain.connect(ctx.destination);
+            src.start(startTime);
+          })(now + i * effectiveGap);
         }
-        var src = ctx.createBufferSource();
-        src.buffer = buf;
-        var gain = ctx.createGain();
-        gain.gain.setValueAtTime(1.5, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
-        var filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.value = 180;
-        src.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
-        src.start();
       } catch(e) {}
     }
 
@@ -1031,8 +1054,15 @@
         <button onclick="shareVia('copy')" id="copyBtn" style="background:#666;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Copy Link</button>
         <button onclick="shareVia('native')" style="background:#ED8F04;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">More...</button>
       </div>
-      <button onclick="bringLightningHome()" id="a2hsBtn" style="width:100%;background:#2c2c2c;color:white;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;font-weight:600;cursor:pointer;margin-bottom:0.6rem;">⚡ Bring the lightning home</button>
-      <div id="a2hsInstructions" style="display:none;background:#f9f8f4;border-radius:8px;padding:0.75rem;margin-bottom:0.6rem;font-size:0.82rem;color:#555;text-align:center;">Tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong> to bring the lightning home 📱</div>
+      <div style="margin-bottom:0.6rem;">
+        <div style="font-size:0.8rem;color:#999;text-align:center;margin-bottom:0.4rem;">Keep the Lightning on your phone!</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+          <button onclick="saveToDevice('android')" style="background:#3ddc84;color:#1a1a1a;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Save to Android</button>
+          <button onclick="saveToDevice('iphone')" style="background:#000;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Save to iPhone</button>
+        </div>
+        <div id="androidInstructions" style="display:none;background:#f0fff4;border-radius:8px;padding:0.75rem;margin-top:0.5rem;font-size:0.82rem;color:#2c2c2c;text-align:center;">Installing... if nothing happens, tap <strong>More...</strong> above then <strong>"Add to Home Screen"</strong></div>
+        <div id="iphoneInstructions" style="display:none;background:#f9f8f4;border-radius:8px;padding:0.75rem;margin-top:0.5rem;font-size:0.82rem;color:#2c2c2c;text-align:center;">On iPhone: tap the <strong>Share</strong> button <span style="font-size:1rem;">⬆️</span> in Safari then tap <strong>"Add to Home Screen"</strong></div>
+      </div>
       <button onclick="closeShareModal()" style="width:100%;background:#f5f5f5;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;color:#666;cursor:pointer;">Cancel</button>
     </div>
   </div>
@@ -1062,7 +1092,9 @@
       setTimeout(function() { banner.classList.remove('flash'); }, 400);
       playThunder();
       generateQR();
-      document.getElementById('shareModal').style.display = 'flex';
+      setTimeout(function() {
+        document.getElementById('shareModal').style.display = 'flex';
+      }, 3000);
     }
 
     function closeShareModal() {
@@ -1093,16 +1125,18 @@
       }
     }
 
-    function bringLightningHome() {
-      if (deferredA2HS) {
-        deferredA2HS.prompt();
-        deferredA2HS.userChoice.then(function(r) {
-          if (r.outcome === 'accepted') document.getElementById('a2hsBtn').textContent = '⚡ Lightning delivered!';
-          deferredA2HS = null;
-        });
+    function saveToDevice(device) {
+      document.getElementById('androidInstructions').style.display = 'none';
+      document.getElementById('iphoneInstructions').style.display = 'none';
+      if (device === 'android') {
+        if (deferredA2HS) {
+          deferredA2HS.prompt();
+          deferredA2HS.userChoice.then(function(r) { deferredA2HS = null; });
+        } else {
+          document.getElementById('androidInstructions').style.display = 'block';
+        }
       } else {
-        var inst = document.getElementById('a2hsInstructions');
-        inst.style.display = inst.style.display === 'none' ? 'block' : 'none';
+        document.getElementById('iphoneInstructions').style.display = 'block';
       }
     }
 
@@ -1121,23 +1155,35 @@
     function playThunder() {
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-        var data = buf.getChannelData(0);
-        for (var i = 0; i < data.length; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 2);
+        var vol = 6, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
+        var effectiveGap = (gapMs / 1000) * (1 - overlapPct);
+        var now = ctx.currentTime;
+        for (var i = 0; i < rolls; i++) {
+          (function(startTime) {
+            var buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
+            var data = buf.getChannelData(0);
+            for (var j = 0; j < data.length; j++) {
+              data[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / data.length, 1.5);
+            }
+            var src = ctx.createBufferSource();
+            src.buffer = buf;
+            var gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.8, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
+            var filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = freq;
+            var shelf = ctx.createBiquadFilter();
+            shelf.type = 'lowshelf';
+            shelf.frequency.value = 100;
+            shelf.gain.value = 8;
+            src.connect(filter);
+            filter.connect(shelf);
+            shelf.connect(gain);
+            gain.connect(ctx.destination);
+            src.start(startTime);
+          })(now + i * effectiveGap);
         }
-        var src = ctx.createBufferSource();
-        src.buffer = buf;
-        var gain = ctx.createGain();
-        gain.gain.setValueAtTime(1.5, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
-        var filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.value = 180;
-        src.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
-        src.start();
       } catch(e) {}
     }
 
