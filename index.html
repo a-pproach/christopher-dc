@@ -727,13 +727,21 @@
     });
 
     function shareLightning() {
-      if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
       var banner = document.getElementById('lightningBanner');
       banner.classList.add('flash');
       setTimeout(function() { banner.classList.remove('flash'); }, 400);
-      playThunder();
+      // 1 second: vibrate
+      setTimeout(function() {
+        if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+      }, 1000);
+      // 2 seconds: thunder rolls
+      setTimeout(function() {
+        playThunder();
+      }, 2000);
+      // 3 seconds: modal opens
       generateQR();
       setTimeout(function() {
         document.getElementById('shareModal').style.display = 'flex';
@@ -1084,13 +1092,21 @@
     });
 
     function shareLightning() {
-      if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
       var banner = document.getElementById('lightningBanner');
       banner.classList.add('flash');
       setTimeout(function() { banner.classList.remove('flash'); }, 400);
-      playThunder();
+      // 1 second: vibrate
+      setTimeout(function() {
+        if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+      }, 1000);
+      // 2 seconds: thunder rolls
+      setTimeout(function() {
+        playThunder();
+      }, 2000);
+      // 3 seconds: modal opens
       generateQR();
       setTimeout(function() {
         document.getElementById('shareModal').style.display = 'flex';
