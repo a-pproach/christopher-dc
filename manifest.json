@@ -1,0 +1,16 @@
+{
+  "name": "Christopher DC",
+  "short_name": "Christopher DC",
+  "description": "Australian Sporting Anthems, Rock Ballads & More",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f7f5",
+  "theme_color": "#ED8F04",
+  "icons": [
+    {
+      "src": "Christopher DC landscape.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

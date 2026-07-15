@@ -3,881 +3,1090 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Christopher DC — Australian sporting anthems and rock ballads. Streaming on Spotify, Apple Music, YouTube.">
-  <meta property="og:title" content="Christopher DC — Australian Sporting Anthems">
-  <meta property="og:description" content="Four anthems. One song that hides five national teams. Streaming everywhere.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#00843D">
-  <title>Christopher DC — Australian Sporting Anthems</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  
+  <title>We Wear Our Pride — Australia's Sporting Anthem Challenge</title>
+  <meta name="description" content="An interactive classroom activity. Find every Australian sporting team and sport hidden in the lyrics of We Wear Our Pride.">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background-color: #f8f7f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f9f8f4;
       color: #2c2c2c;
-      line-height: 1.6;
+      min-height: 100vh;
     }
-    
-    .container {
-      max-width: 1000px;
+
+    /* MAP BACKGROUND */
+    .map-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url('Map%20of%20Oz.png');
+      background-size: 70%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 1rem;
     }
-    
+
+    /* HEADER */
     header {
-      padding: 2rem 0;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: #2c2c2c;
-    }
-    
-    .hero {
-      padding: 3rem 0;
       text-align: center;
-    }
-    
-    .hero-image {
-      width: 180px;
-      height: 180px;
+      padding: 1.5rem 0 1rem;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 1rem;
+      background: rgba(249,248,244,0.92);
       border-radius: 12px;
-      margin: 0 auto 2rem;
-      background: #e5e5e5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 0.9rem;
+      padding: 1.2rem;
     }
-    
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
+
+    .title-treatment {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #00843D;
+      letter-spacing: -0.01em;
       line-height: 1.2;
     }
-    
-    .tagline {
-      font-size: 1.1rem;
+
+    .title-treatment span {
+      color: #FFD700;
+      -webkit-text-stroke: 1px #b8960a;
+    }
+
+    .subtitle {
+      font-size: 1rem;
       color: #666;
-      margin-bottom: 2rem;
-      font-weight: 400;
+      margin-top: 0.3rem;
     }
-    
-    .marsupials-reveal {
-      background: #fff;
+
+    /* MEDAL TALLY BAR */
+    .tally-bar {
+      background: white;
       border: 1px solid #e5e5e5;
       border-radius: 12px;
-      padding: 1.5rem;
-      margin: 0 auto 3rem;
-      max-width: 600px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .marsupials-reveal:hover {
-      border-color: #00843D;
-      background: #fffbf7;
-    }
-    
-    .marsupials-text {
-      font-size: 1.1rem;
-      font-weight: 500;
+      padding: 1rem 1.5rem;
       margin-bottom: 1rem;
-      color: #2c2c2c;
-    }
-    
-    .teams {
-      display: none;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e5e5e5;
-    }
-    
-    .teams.revealed {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-    
-    .team-tag {
-      background: #FFD700;
-      color: #1a1a1a;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    
-    .reveal-hint {
-      font-size: 0.85rem;
-      color: #999;
-      margin-top: 1rem;
-    }
-    
-    section {
-      padding: 3rem 0;
-    }
-    
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-    
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-    
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e5e5e5;
-      transition: all 0.3s ease;
-    }
-    
-    .card:hover {
-      border-color: #00843D;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    
-    .card-image {
-      width: 100%;
-      aspect-ratio: 1;
-      background: linear-gradient(135deg, #e5e5e5 0%, #d5d5d5 100%);
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 0.9rem;
-    }
-    
-    .card-content {
-      padding: 1.5rem;
-    }
-    
-    .card-coming-soon {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: #00843D;
-      color: #fff;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      z-index: 1;
-    }
-    
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #2c2c2c;
-    }
-    
-    .card-genre {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-    
-    .card-description {
-      font-size: 0.95rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    
-    .audio-player {
-      background: #f0f0f0;
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    
-    .button-group {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-    }
-    
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 1px solid #e5e5e5;
-      background: #fff;
-      color: #2c2c2c;
-    }
-    
-    .btn:hover {
-      background: #f5f5f5;
-      border-color: #00843D;
-    }
-    
-    .btn-primary {
-      background: #00843D;
-      color: #fff;
-      border: none;
-    }
-    
-    .btn-primary:hover {
-      background: #006830;
-    }
-    
-    .btn-small {
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
-    
-    .presell-block {
-      background: #fff;
-      border: 2px solid #00843D;
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      margin: 3rem 0;
-    }
-    
-    .presell-block h3 {
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #2c2c2c;
-    }
-    
-    .presell-block p {
-      color: #666;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-    
-    .about {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2rem;
-      border: 1px solid #e5e5e5;
-    }
-    
-    .about h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-      color: #2c2c2c;
-    }
-    
-    .about p {
-      color: #555;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    
-    footer {
-      padding: 2rem 0;
-      border-top: 1px solid #e5e5e5;
-      text-align: center;
-      margin-top: 3rem;
-    }
-    
-    .social-links {
-      display: flex;
-      justify-content: center;
       gap: 1.5rem;
-      margin-bottom: 2rem;
     }
-    
-    .social-links a {
-      display: inline-flex;
-      width: 44px;
-      height: 44px;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 50%;
-      color: #2c2c2c;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
+
+    .tally-count {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #00843D;
+      white-space: nowrap;
     }
-    
-    .social-links a:hover {
-      background: #00843D;
-      color: #fff;
-      border-color: #00843D;
-    }
-    
-    .footer-text {
-      font-size: 0.85rem;
+
+    .tally-count span {
+      font-size: 1rem;
+      font-weight: 400;
       color: #999;
     }
-    
-    .spacer {
-      height: 1rem;
+
+    .tally-medals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      flex: 1;
+      min-height: 40px;
+      align-items: center;
     }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      
-      h2 {
-        font-size: 1.4rem;
-      }
-      
-      .cards-grid {
+
+    .progress-wrap {
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .progress-bar {
+      background: #eee;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #00843D;
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* MAIN LAYOUT */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr 220px;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    /* SPORT BOARDS */
+    .sport-board {
+      background: white;
+      border-radius: 12px;
+      border: 1.5px solid #e5e5e5;
+      overflow: hidden;
+    }
+
+    .board-header {
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .board-header.national { background: #00843D; color: white; }
+    .board-header.summer { background: #FFD700; color: #2c2c2c; }
+    .board-header.winter { background: #FFD700; color: #2c2c2c; }
+    .board-header.commonwealth { background: #00843D; color: white; }
+
+    .board-items {
+      padding: 0.5rem;
+    }
+
+    .sport-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+      color: #2c2c2c;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s;
+      line-height: 1.4;
+    }
+
+    .sport-item:hover { background: #f0f9f4; color: #00843D; }
+    .sport-item.selected { background: #00843D; color: white; font-weight: 500; }
+    .sport-item.found { background: #fffbe6; color: #7a5000; }
+    .sport-item.found::after { content: ' ★'; }
+
+    /* LYRICS COLUMN */
+    .lyrics-panel {
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+      padding: 1.5rem;
+    }
+
+    .lyrics-instruction {
+      background: #f0f9f4;
+      border: 1px solid #00843D;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #00843D;
+      margin-bottom: 1.2rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .lyrics-body {
+      font-size: 1.05rem;
+      line-height: 2;
+    }
+
+    .lyric-line {
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .lyric-line.blank {
+      display: block;
+      height: 0.8rem;
+    }
+
+    .lyric-line.outro {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    /* CLICKABLE LYRIC PHRASES */
+    .lyric-phrase {
+      cursor: pointer;
+      border-bottom: 2px dashed #ccc;
+      transition: all 0.2s;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    .lyric-phrase:hover {
+      background: #fff9e6;
+      border-bottom-color: #FFD700;
+    }
+
+    .lyric-phrase.highlighted {
+      background: #fff3b0;
+      border-bottom: 2px solid #FFD700;
+      animation: pulse-gold 0.4s ease;
+    }
+
+    .lyric-phrase.found {
+      background: #d4edda;
+      border-bottom: 2px solid #00843D;
+      color: #00843D;
+      font-weight: 600;
+    }
+
+    .lyric-phrase.wrong {
+      background: #ffe6e6;
+      border-bottom: 2px solid #cc0000;
+      animation: shake 0.3s ease;
+    }
+
+    @keyframes pulse-gold {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    /* FEEDBACK TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #00843D;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 99px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.wrong {
+      background: #cc3300;
+    }
+
+    /* EMU EASTER EGG */
+    .emu {
+      position: fixed;
+      bottom: -80px;
+      font-size: 3rem;
+      transition: bottom 1s ease;
+      z-index: 50;
+      cursor: default;
+      user-select: none;
+    }
+
+    .emu.visible { bottom: 1rem; }
+
+    /* CELEBRATION */
+    .celebration {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,132,61,0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+    }
+
+    .celebration.show { display: flex; }
+    .celebration h2 { font-size: 3rem; margin-bottom: 1rem; }
+    .celebration p { font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem; }
+    .celebration button {
+      background: #FFD700;
+      color: #7a5000;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 99px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
         grid-template-columns: 1fr;
       }
-      
-      section {
-        padding: 2rem 0;
-      }
+      .tally-bar { flex-wrap: wrap; }
     }
-  </style>
+  
+    /* === MOBILE ONLY === */
+    .mobile-layout { display: none; }
+    @media (max-width: 768px) {
+      .main-layout { display: none !important; }
+      .mobile-layout { display: block !important; }
+      .tally-bar { position: sticky; top: 0; z-index: 100; background: white; border-radius: 0; border-left: none; border-right: none; padding: 0.5rem 0.75rem; }
+      .mobile-instruction-box { background: #f0f9f4; border: 1.5px solid #00843D; border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0.75rem; font-size: 0.9rem; color: #00843D; font-weight: 600; text-align: center; }
+      .mobile-boards { display: flex; overflow-x: auto; gap: 0.75rem; padding: 0.75rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+      .mobile-boards::-webkit-scrollbar { display: none; }
+      .mobile-board { flex: 0 0 85vw; scroll-snap-align: start; background: white; border-radius: 10px; border: 1px solid #e5e5e5; overflow: hidden; max-height: 380px; overflow-y: auto; }
+      .swipe-hint { text-align: center; font-size: 0.75rem; color: #aaa; padding: 0.2rem 0 0.5rem; }
+      .mobile-lyrics-header { position: sticky; top: 56px; z-index: 99; background: #fffbea; border: 1.5px solid #00843D; border-radius: 8px; padding: 0.75rem 1rem; margin: 0 0.75rem 0.5rem; font-size: 0.9rem; font-weight: 700; color: #00843D; text-align: center; }
+      .mobile-lyrics { padding: 0 0.75rem 3rem; font-size: 1rem; line-height: 2; }
+      .mobile-board .board-header.commonwealth { background: #FFD700 !important; color: #2c2c2c !important; }
+      .mobile-board .board-header.summer { background: #00843D !important; color: white !important; }
+      .mobile-board .board-header.winter { background: #FFD700 !important; color: #2c2c2c !important; }
+      .toast { display: none !important; }
+      .mobile-board .sport-item { font-size: 0.8rem; padding: 0.35rem 0.6rem; }
+    }
+</style>
 </head>
 <body>
-  
+
+<div class="map-bg"></div>
+
+<div class="page-wrap">
+
   <header>
-    <div style="width: 100%; height: auto; overflow: hidden;">
-      <img src="christopher_dc_GIF.webp" alt="Christopher DC" style="width: 100%; height: auto; display: block;">
-    </div>
+    <div class="title-treatment">We Wear Our <span>Pride</span></div>
+    <div class="subtitle">Australia's Sporting Anthem Challenge — How many can your class find?</div>
   </header>
-  
-  <main>
-    <!-- HERO: WE WEAR OUR PRIDE -->
-    <section class="hero" style="background: #fff; border-bottom: 1px solid #e5e5e5;">
-      <div class="container">
-        <div style="width: 220px; height: 220px; margin: 0 auto 2.5rem; border-radius: 12px; overflow: hidden;">
-          <img src="We_Wear_Our_Pride.png" alt="We Wear Our Pride" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        
-        <div style="max-width: 700px; margin: 0 auto;">
-          <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">We Wear Our Pride</h1>
-          <p class="tagline" style="font-size: 1rem; margin-bottom: 1.5rem;">Australia's Sporting Anthem</p>
-          
-          <div style="background: #f8f7f5; border-radius: 12px; padding: 1.8rem; margin-bottom: 2rem;">
-            <p style="font-size: 1.05rem; color: #333; line-height: 1.9; margin-bottom: 0;">
-              A song that's fit for every sporting event Australia and Australians compete in.<br>
-              Every national team, every Olympics sport — both Summer &amp; Winter as well as those played at the Commonwealth Games is referenced 'poetically' somewhere in the lyrics.<br>
-              Can you spot them?<br>
-              Over five national teams woven into just one word alone!
-            </p>
-          </div>
 
-          <p style="font-size: 1.4rem; font-style: italic; color: #cc0000; font-weight: 600; margin: 1.5rem 0; text-align: center; letter-spacing: 0.01em;">"We Honour our Marsupials"</p>
-
-          <div style="text-align: center; margin: 1.5rem 0 2rem;">
-            <button onclick="toggleTeams(event)" style="background: #FFD700; color: #1a1a1a; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; animation: pulse 2s infinite; letter-spacing: 0.02em;">Click to see the 'hidden' teams</button>
-          </div>
-
-          <style>
-            @keyframes pulse {
-              0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); transform: scale(1); }
-              50% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0); transform: scale(1.03); }
-              100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); transform: scale(1); }
-            }
-          </style>
-
-          
-          <div class="marsupials-reveal" onclick="toggleTeams(event)" style="margin-top: 2rem; border: none; background: none; box-shadow: none;">
-            
-            <div class="teams" id="teamsReveal">
-              <div class="team-tag">Kangaroos</div>
-              <div class="team-tag">Wallabies</div>
-              <div class="team-tag">Boomers</div>
-              <div class="team-tag">Socceroos</div>
-              <div class="team-tag">Hockeyroos</div>
-            </div>
-            
-          </div>
-
-          <div style="text-align: center; margin: 1.5rem 0;">
-            <a href="https://wewearourpride.au" class="btn btn-primary" style="display:inline-block; padding: 0.9rem 1.8rem; font-size: 1rem;">Click <strong style="color:#cc0000;">Here</strong> for full lyrics and SCHOOLS "Sports Treasure Hunt"</a>
-          </div>
-          
-          <div class="button-group" style="margin-top: 1rem; justify-content: center; display: flex;">
-            <a href="https://open.spotify.com/track/15xz0zfMP6OxHGgRrLdBuN" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
-            <a data-yt="true" href="https://youtu.be/uhvWFeAsQD0" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- HEADER: Christopher DC -->
-    <section style="padding: 2rem 0; background: #f8f7f5; text-align: center;">
-      <div class="container">
-        <h2 style="font-size: 1.5rem; margin: 0;">Australian Sporting Anthems, Rock Ballads, Alt-Country & More</h2>
-      </div>
-    </section>
-    
-    <!-- OTHER ANTHEMS -->
-    <section>
-      <div class="container">
-        <h2>The Anthem Collection</h2>
-        
-        <div class="cards-grid">
-          <!-- Cheerin' at the G -->
-          <div class="card">
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="Cheerin'%20at%20the%20G.png" alt="Cheerin' at the G" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">Cheerin' at the G</div>
-              <div class="card-genre">MCG Anthem</div>
-              <div class="card-description">Any stadium, any code. The sound of Australia cheering its heroes.</div>
-              <div class="button-group">
-                <a href="https://open.spotify.com/track/1izB1G3cNvQBYPPRf9fYro" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
-                <a data-yt="true" href="https://youtu.be/g0Vbqc31Aeg" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Lang Park Loud -->
-          <div class="card">
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="Lang%20Park%20Loud.png" alt="Lang Park Loud" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">Lang Park Loud</div>
-              <div class="card-genre">Suncorp Stadium Anthem</div>
-              <div class="card-description">Brisbane roars. The song of a city that lives and breathes rugby league.</div>
-              <div class="button-group">
-                <a href="https://open.spotify.com/track/5TECicfRcR0izBix5rz9Rr" class="btn btn-primary btn-small" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
-                <a data-yt="true" href="https://youtu.be/nly7ZnQTCbY" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- We're the Devils -->
-          <div class="card">
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="We're%20The%20Devils.png" alt="We're the Devils" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">We're the Devils</div>
-              <div class="card-genre">Tasmania AFL Club Song</div>
-              <div class="card-description">Roar for the newest team. The spirit of Tasmania, raw and fearless.</div>
-              <div class="button-group">
-                <a data-yt="true" href="https://youtu.be/7aWg1qxu29s" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- ALBUMS -->
-    <section>
-      <div class="container">
-        <h2>The Full Catalogue</h2>
-        
-        <div class="cards-grid">
-          <!-- Cowboys n Rockets -->
-          <div class="card" style="position: relative;">
-            <div class="card-coming-soon">Coming Soon</div>
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="Cowboys%20n%20Rockets%20artwork.png" alt="Cowboys n Rockets" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">Cowboys n Rockets</div>
-              <div class="card-genre">Rock Ballad / Alt-Country</div>
-              <div class="card-description">Debut album. 8 tracks.</div>
-              
-              <div style="margin: 1.2rem 0; padding: 1.2rem; background: #f0f7f3; border-radius: 10px; border-left: 4px solid #00843D;">
-                <div style="font-size: 1rem; font-weight: 700; color: #00843D; margin-bottom: 0.3rem;">LEAD SINGLE</div>
-                <div style="font-size: 1.15rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem;">"Something About You"</div>
-                <div style="font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; font-weight: 500;">🎵 Preview — hit play</div>
-                <audio controls style="width: 100%; height: 48px; border-radius: 10px; outline: none; accent-color: #00843D;">
-                  <source src="Something%20About%20You%20preview.mp3" type="audio/mpeg">
-                  Your browser does not support the audio player.
-                </audio>
-              </div>
-              
-              <div class="button-group">
-                <a href="#cowboys-tracklist" class="btn btn-small">View Tracklist ↓</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Friends & Lovers -->
-          <div class="card">
-            <div class="card-image" style="background: linear-gradient(135deg, #d4a5c9 0%, #a8c4d4 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-              <div style="font-size: 2rem;">🎵</div>
-              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Friends &amp; Lovers<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
-            </div>
-            <div class="card-content">
-              <div class="card-title">Friends &amp; Lovers</div>
-              <div class="card-genre">Pop / Soft Rock / Folk</div>
-              <div class="card-description">9 tracks. Nearly complete. Final single "Not Forgotten" in progress.</div>
-              <div class="button-group">
-                <a href="#" class="btn btn-small">View Tracklist</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Club Noir -->
-          <div class="card">
-            <div class="card-image" style="background: linear-gradient(135deg, #2c2c2c 0%, #4a3728 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-              <div style="font-size: 2rem;">🎵</div>
-              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Club Noir<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
-            </div>
-            <div class="card-content">
-              <div class="card-title">Club Noir</div>
-              <div class="card-genre">Nick Cave / Leonard Cohen Territory</div>
-              <div class="card-description">7 tracks in progress. Darker acoustic universe. Building now.</div>
-              <div class="button-group">
-                <a href="#" class="btn btn-small">View Tracklist</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COWBOYS N ROCKETS TRACKLIST -->
-    <section id="cowboys-tracklist" style="padding: 2rem 0; background: #fff;">
-      <div class="container">
-        <h2 style="font-size: 1.4rem; text-align: left; margin-bottom: 1.5rem;">Cowboys n Rockets — Full Tracklist</h2>
-        <div style="max-width: 600px;">
-          <div style="display: flex; flex-direction: column; gap: 0;">
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">1</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Can't Count on Nobody</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">2</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Out of Sight</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0; background: #fffbf7;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">3</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c; font-weight: 500;">Something About You</span>
-              <span style="margin-left: auto; background: #00843D; color: #fff; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500;">LEAD SINGLE</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">4</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Cowboys n Rockets</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">5</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">I Believe in You</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">6</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Reverie</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">7</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">I've Had a Dream</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">8</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Romance</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- PRESELL CD -->
-    <section>
-      <div class="container">
-        <div class="presell-block">
-          <h3>Collector's Edition CD — Limited Run</h3>
-          <p>Eight tracks: the four anthems + one song from each of four albums. Numbered edition. Exclusively available here.</p>
-          <a href="#" class="btn btn-primary">Register Your Interest</a>
-          <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">More details coming soon</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- ABOUT -->
-    <section>
-      <div class="container">
-        <div class="about">
-          <h3>About</h3>
-          
-          <p>My first AFL Grand Final was 1972. Carlton v Richmond. 112,393 people roaring. I was there. I've been there for 30 Grand Finals in a row since — through eligibility criteria shifts, family logistics, work complications. My dad hasn't missed one since 1949. My brother and sister since 1972. No matter who's playing, it's our family pilgrimage.</p>
-          
-          <p>"When a hundred thousand voices come crashing into you" — that line from "Roarin' and Cheerin'" is literal. I've lived it.</p>
-          
-          <p>10 years ago I moved to a balcony literally 400m from the very centre of Suncorp Stadium itself. A venue that hosts rugby league, rugby union, soccer, and more — multiple codes, different scale (52,000, not 112,000), but still that same essential roar. And for decades, I felt the same absence. Crowds screaming, passion at full volume, and no song. No anthem. Nothing to sing back.</p>
-          
-          <p>Poet for 30 years. Never thought songwriting was mine to do. But the vacuum was too obvious. Australia's sports-mad culture had everything except what it needed: music to roar along to.</p>
-          
-          <p>So I wrote it. The anthems. The treasures hidden inside the lyrics. The national teams woven into five-word lines. The gap I'd felt since 1972, finally filled.</p>
-          
-          <p>Then I kept writing. More songs to sing with a high baritone, catchy hooks and choruses wrapped around poetic verses — that seems to be my thing. Hence the albums in production: no less than four of them, with more steadily being filled. <em>Living on the Rim</em> features the four anthems plus a couple more. <em>Cowboys n Rockets</em>. <em>Friends & Lovers</em>. <em>Club Noir</em>. And more coming.</p>
-          
-          <p>Keep popping back for updates.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  
-  <footer>
-    <div class="container">
-      <div class="social-links">
-        <a href="https://www.youtube.com/@ChristopherDCmusic" target="_blank" title="YouTube">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-        </a>
-        <a href="https://open.spotify.com/artist/5cufZRrSCZVToSJOj68mpA" target="_blank" title="Spotify">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/christopherdcmusic" target="_blank" title="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@christopherdcmusic" target="_blank" title="TikTok">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
-        </a>
-        <a href="https://www.facebook.com/christopherdcmusic" target="_blank" title="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <a href="https://whatsapp.com/channel/0029Vb8GGaI6RGJJsGvel901" target="_blank" title="WhatsApp Channel">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        </a>
-      </div>
-      <p class="footer-text">&copy; 2026 Christopher DC. All rights reserved.</p>
+  <!-- MEDAL TALLY -->
+  <div class="tally-bar">
+    <div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;flex-wrap:wrap;">
+      <div class="tally-count"><span id="goldCount">0</span> <span style="font-size:0.9rem;color:#b8960a">🥇</span></div>
+      <div class="tally-count" style="color:#888;"><span id="silverCount">0</span> <span style="font-size:0.9rem;color:#999">🥈</span></div>
+      <div class="tally-count" style="color:#a07040;"><span id="bronzeCount">0</span> <span style="font-size:0.9rem;color:#cd7f32">🥉</span></div>
     </div>
-  </footer>
-  
-  <script>
-    function toggleTeams(e) {
-      const teamsDiv = document.getElementById('teamsReveal');
-      teamsDiv.classList.toggle('revealed');
-    }
-  </script>
-  
-</body>
-</html>          <!-- We're the Devils -->
-          <div class="card">
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="We're%20The%20Devils.png" alt="We're the Devils" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">We're the Devils</div>
-              <div class="card-genre">Tasmania AFL Club Song</div>
-              <div class="card-description">Roar for the newest team. The spirit of Tasmania, raw and fearless.</div>
-              <div class="button-group">
-                <a data-yt="true" href="https://youtu.be/7aWg1qxu29s" class="btn btn-primary btn-small" style="background:#FF0000;border-color:#FF0000;" target="_blank"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>YouTube</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- ALBUMS -->
-    <section>
-      <div class="container">
-        <h2>The Full Catalogue</h2>
-        
-        <div class="cards-grid">
-          <!-- Cowboys n Rockets -->
-          <div class="card" style="position: relative;">
-            <div class="card-coming-soon">Coming Soon</div>
-            <div class="card-image" style="background: none; padding: 0; overflow: hidden;">
-              <img src="Cowboys%20n%20Rockets%20artwork.png" alt="Cowboys n Rockets" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-              <div class="card-title">Cowboys n Rockets</div>
-              <div class="card-genre">Rock Ballad / Alt-Country</div>
-              <div class="card-description">Debut album. 8 tracks.</div>
-              
-              <div style="margin: 1.2rem 0; padding: 1.2rem; background: #f0f7f3; border-radius: 10px; border-left: 4px solid #00843D;">
-                <div style="font-size: 1rem; font-weight: 700; color: #00843D; margin-bottom: 0.3rem;">LEAD SINGLE</div>
-                <div style="font-size: 1.15rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem;">"Something About You"</div>
-                <div style="font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; font-weight: 500;">🎵 Preview — hit play</div>
-                <audio controls style="width: 100%; height: 48px; border-radius: 10px; outline: none; accent-color: #00843D;">
-                  <source src="Something%20About%20You%20preview.mp3" type="audio/mpeg">
-                  Your browser does not support the audio player.
-                </audio>
-              </div>
-              
-              <div class="button-group">
-                <a href="#cowboys-tracklist" class="btn btn-small">View Tracklist ↓</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Friends & Lovers -->
-          <div class="card">
-            <div class="card-image" style="background: linear-gradient(135deg, #d4a5c9 0%, #a8c4d4 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-              <div style="font-size: 2rem;">🎵</div>
-              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Friends &amp; Lovers<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
-            </div>
-            <div class="card-content">
-              <div class="card-title">Friends &amp; Lovers</div>
-              <div class="card-genre">Pop / Soft Rock / Folk</div>
-              <div class="card-description">9 tracks. Nearly complete. Final single "Not Forgotten" in progress.</div>
-              <div class="button-group">
-                <a href="#" class="btn btn-small">View Tracklist</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Club Noir -->
-          <div class="card">
-            <div class="card-image" style="background: linear-gradient(135deg, #2c2c2c 0%, #4a3728 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
-              <div style="font-size: 2rem;">🎵</div>
-              <div style="font-size: 0.85rem; color: #fff; font-weight: 500; text-align: center; padding: 0 1rem;">Club Noir<br><span style="font-size: 0.75rem; opacity: 0.8;">Artwork coming soon</span></div>
-            </div>
-            <div class="card-content">
-              <div class="card-title">Club Noir</div>
-              <div class="card-genre">Nick Cave / Leonard Cohen Territory</div>
-              <div class="card-description">7 tracks in progress. Darker acoustic universe. Building now.</div>
-              <div class="button-group">
-                <a href="#" class="btn btn-small">View Tracklist</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COWBOYS N ROCKETS TRACKLIST -->
-    <section id="cowboys-tracklist" style="padding: 2rem 0; background: #fff;">
-      <div class="container">
-        <h2 style="font-size: 1.4rem; text-align: left; margin-bottom: 1.5rem;">Cowboys n Rockets — Full Tracklist</h2>
-        <div style="max-width: 600px;">
-          <div style="display: flex; flex-direction: column; gap: 0;">
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">1</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Can't Count on Nobody</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">2</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Out of Sight</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0; background: #fffbf7;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">3</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c; font-weight: 500;">Something About You</span>
-              <span style="margin-left: auto; background: #00843D; color: #fff; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500;">LEAD SINGLE</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">4</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Cowboys n Rockets</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">5</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">I Believe in You</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">6</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Reverie</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid #f0f0f0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">7</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">I've Had a Dream</span>
-            </div>
-            <div style="display: flex; align-items: center; padding: 0.9rem 0;">
-              <span style="font-size: 0.85rem; color: #999; width: 2rem; flex-shrink: 0;">8</span>
-              <span style="font-size: 0.95rem; color: #2c2c2c;">Romance</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- PRESELL CD -->
-    <section>
-      <div class="container">
-        <div class="presell-block">
-          <h3>Collector's Edition CD — Limited Run</h3>
-          <p>Eight tracks: the four anthems + one song from each of four albums. Numbered edition. Exclusively available here.</p>
-          <a href="#" class="btn btn-primary">Register Your Interest</a>
-          <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">More details coming soon</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- ABOUT -->
-    <section>
-      <div class="container">
-        <div class="about">
-          <h3>About</h3>
-          
-          <p>My first AFL Grand Final was 1972. Carlton v Richmond. 112,393 people roaring. I was there. I've been there for 30 Grand Finals in a row since — through eligibility criteria shifts, family logistics, work complications. My dad hasn't missed one since 1949. My brother and sister since 1972. No matter who's playing, it's our family pilgrimage.</p>
-          
-          <p>"When a hundred thousand voices come crashing into you" — that line from "Roarin' and Cheerin'" is literal. I've lived it.</p>
-          
-          <p>10 years ago I moved to a balcony literally 400m from the very centre of Suncorp Stadium itself. A venue that hosts rugby league, rugby union, soccer, and more — multiple codes, different scale (52,000, not 112,000), but still that same essential roar. And for decades, I felt the same absence. Crowds screaming, passion at full volume, and no song. No anthem. Nothing to sing back.</p>
-          
-          <p>Poet for 30 years. Never thought songwriting was mine to do. But the vacuum was too obvious. Australia's sports-mad culture had everything except what it needed: music to roar along to.</p>
-          
-          <p>So I wrote it. The anthems. The treasures hidden inside the lyrics. The national teams woven into five-word lines. The gap I'd felt since 1972, finally filled.</p>
-          
-          <p>Then I kept writing. More songs to sing with a high baritone, catchy hooks and choruses wrapped around poetic verses — that seems to be my thing. Hence the albums in production: no less than four of them, with more steadily being filled. <em>Living on the Rim</em> features the four anthems plus a couple more. <em>Cowboys n Rockets</em>. <em>Friends & Lovers</em>. <em>Club Noir</em>. And more coming.</p>
-          
-          <p>Keep popping back for updates.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  
-  <footer>
-    <div class="container">
-      <div class="social-links">
-        <a href="https://www.youtube.com/@ChristopherDCmusic" target="_blank" title="YouTube">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-        </a>
-        <a href="https://open.spotify.com/artist/5cufZRrSCZVToSJOj68mpA" target="_blank" title="Spotify">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/christopherdcmusic" target="_blank" title="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@christopherdcmusic" target="_blank" title="TikTok">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
-        </a>
-        <a href="https://www.facebook.com/christopherdcmusic" target="_blank" title="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <a href="https://whatsapp.com/channel/0029Vb8GGaI6RGJJsGvel901" target="_blank" title="WhatsApp Channel">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        </a>
-      </div>
-      <p class="footer-text">&copy; 2026 Christopher DC. All rights reserved.</p>
+    <div id="medalRow" style="display:flex;flex-wrap:wrap;gap:3px;flex:1;min-height:36px;align-items:flex-start;padding:4px 0;">
+      <span style="font-size:0.8rem;color:#bbb;align-self:center">Find a team or sport to earn your first medal!</span>
     </div>
-  </footer>
-  
-  <script>
-    function toggleTeams(e) {
-      const teamsDiv = document.getElementById('teamsReveal');
-      teamsDiv.classList.toggle('revealed');
+  </div>
+
+  <div class="main-layout">
+
+    <!-- LEFT: NATIONAL TEAMS + WINTER OLYMPICS -->
+    <div>
+      <div class="sport-board" style="margin-bottom:1rem">
+        <div class="board-header national">🦘 National Teams</div>
+        <div class="board-items" id="boardNational">
+          <button class="sport-item" data-team="aussie-spirit" onclick="selectSport(this,'aussie-spirit')">Aussie Spirit — Women's Softball</button>
+          <button class="sport-item" data-team="boomers" onclick="selectSport(this,'boomers')">Boomers — Basketball</button>
+          <button class="sport-item" data-team="burras" onclick="selectSport(this,'burras')">Burras — Under-21 Hockey</button>
+          <button class="sport-item" data-team="diamonds" onclick="selectSport(this,'diamonds')">Diamonds — Netball</button>
+          <button class="sport-item" data-team="dolphins" onclick="selectSport(this,'dolphins')">Dolphins — Swimming</button>
+          <button class="sport-item" data-team="emeralds" onclick="selectSport(this,'emeralds')">Emeralds — Women's Baseball</button>
+          <button class="sport-item" data-team="gliders" onclick="selectSport(this,'gliders')">Gliders — Women's Wheelchair Basketball</button>
+          <button class="sport-item" data-team="hockeyroos" onclick="selectSport(this,'hockeyroos')">Hockeyroos — Women's Hockey</button>
+          <button class="sport-item" data-team="jillaroos" onclick="selectSport(this,'jillaroos')">Jillaroos — Women's Rugby League</button>
+          <button class="sport-item" data-team="kangaroos" onclick="selectSport(this,'kangaroos')">Kangaroos — Rugby League</button>
+          <button class="sport-item" data-team="kookaburras" onclick="selectSport(this,'kookaburras')">Kookaburras — Men's Hockey</button>
+          <button class="sport-item" data-team="matildas" onclick="selectSport(this,'matildas')">Matildas — Women's Football</button>
+          <button class="sport-item" data-team="olyroos" onclick="selectSport(this,'olyroos')">Olyroos — Olympic Football</button>
+          <button class="sport-item" data-team="opals" onclick="selectSport(this,'opals')">Opals — Women's Basketball</button>
+          <button class="sport-item" data-team="rollers" onclick="selectSport(this,'rollers')">Rollers — Men's Wheelchair Basketball</button>
+          <button class="sport-item" data-team="sharks" onclick="selectSport(this,'sharks')">Sharks — Men's Water Polo</button>
+          <button class="sport-item" data-team="socceroos" onclick="selectSport(this,'socceroos')">Socceroos — Men's Football</button>
+          <button class="sport-item" data-team="steelers" onclick="selectSport(this,'steelers')">Steelers — Wheelchair Rugby</button>
+          <button class="sport-item" data-team="stingers" onclick="selectSport(this,'stingers')">Stingers — Women's Water Polo</button>
+          <button class="sport-item" data-team="volleyroos" onclick="selectSport(this,'volleyroos')">Volleyroos — Volleyball</button>
+          <button class="sport-item" data-team="wallabies" onclick="selectSport(this,'wallabies')">Wallabies — Rugby Union</button>
+          <button class="sport-item" data-team="wallaroos" onclick="selectSport(this,'wallaroos')">Wallaroos — Women's Rugby Union</button>
+          <button class="sport-item" data-team="young-socceroos" onclick="selectSport(this,'young-socceroos')">Young Socceroos — Youth Football</button>
+        </div>
+      </div>
+
+      <div class="sport-board">
+        <div class="board-header winter">❄️ Milano Cortina 2026 Winter Olympics</div>
+        <div class="board-items">
+          <button class="sport-item" data-team="wi-alpine" onclick="selectSport(this,'wi-alpine')">Alpine Skiing</button>
+          <button class="sport-item" data-team="wi-crosscountry" onclick="selectSport(this,'wi-crosscountry')">Cross-Country Skiing</button>
+          <button class="sport-item" data-team="wi-skijump" onclick="selectSport(this,'wi-skijump')">Ski Jumping</button>
+          <button class="sport-item" data-team="wi-snowboard" onclick="selectSport(this,'wi-snowboard')">Snowboarding</button>
+          <button class="sport-item" data-team="wi-figureskate" onclick="selectSport(this,'wi-figureskate')">Figure Skating</button>
+          <button class="sport-item" data-team="wi-speedskate" onclick="selectSport(this,'wi-speedskate')">Speed Skating</button>
+          <button class="sport-item" data-team="wi-shorttrack" onclick="selectSport(this,'wi-shorttrack')">Short-Track Speed Skating</button>
+          <button class="sport-item" data-team="wi-icehockey" onclick="selectSport(this,'wi-icehockey')">Ice Hockey</button>
+          <button class="sport-item" data-team="wi-curling" onclick="selectSport(this,'wi-curling')">Curling</button>
+          <button class="sport-item" data-team="wi-luge" onclick="selectSport(this,'wi-luge')">Luge</button>
+          <button class="sport-item" data-team="wi-skeleton" onclick="selectSport(this,'wi-skeleton')">Skeleton</button>
+          <button class="sport-item" data-team="wi-bobsleigh" onclick="selectSport(this,'wi-bobsleigh')">Bobsleigh</button>
+          <button class="sport-item" data-team="wi-biathlon" onclick="selectSport(this,'wi-biathlon')">Biathlon</button>
+          <button class="sport-item" data-team="wi-freestyle" onclick="selectSport(this,'wi-freestyle')">Freestyle Skiing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTRE: LYRICS -->
+    <div class="lyrics-panel">
+      <div class="lyrics-instruction" id="instruction">
+        👆 First, click a team or sport from the lists. Then find where it hides in the lyrics below.
+      </div>
+
+      <div class="lyrics-body" id="lyricsBody">
+
+        <span class="lyric-line">Weeee wear our pride,</span>
+        <span class="lyric-line">the Green and Gold,</span>
+        <span class="lyric-line">and raise our voices bold,</span>
+        <span class="lyric-line">cheering on our champions,</span>
+        <span class="lyric-line">Australia's Green and Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We honour our <span class="lyric-phrase" data-matches="marsupials" onclick="checkMatch(this)">marsupials</span>,</span>
+        <span class="lyric-line">their <span class="lyric-phrase" data-matches="laughing" onclick="checkMatch(this)">laughing</span>, <span class="lyric-phrase" data-matches="swimming mates" onclick="checkMatch(this)">swimming mates</span>,</span>
+        <span class="lyric-line">the <span class="lyric-phrase" data-matches="gems" onclick="checkMatch(this)">gems</span> within our southern land</span>
+        <span class="lyric-line">shine like stars among our greats.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We wear our pride,</span>
+        <span class="lyric-line">the Green and Gold,</span>
+        <span class="lyric-line">and raise our voices bold,</span>
+        <span class="lyric-line">cheering on our champions,</span>
+        <span class="lyric-line">Australia's Green and Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We <span class="lyric-phrase" data-matches="kick" onclick="checkMatch(this)">kick</span>, we <span class="lyric-phrase" data-matches="strike" onclick="checkMatch(this)">strike</span>, we <span class="lyric-phrase" data-matches="throw" onclick="checkMatch(this)">throw</span>,</span>
+        <span class="lyric-line">each <span class="lyric-phrase" data-matches="ball" onclick="checkMatch(this)">ball in striving for our goal</span>.</span>
+        <span class="lyric-line">We <span class="lyric-phrase" data-matches="run" onclick="checkMatch(this)">run</span>, we <span class="lyric-phrase" data-matches="ride" onclick="checkMatch(this)">chase</span>, we <span class="lyric-phrase" data-matches="ride" onclick="checkMatch(this)">ride</span>,</span>
+        <span class="lyric-line"><span class="lyric-phrase" data-matches="jump" onclick="checkMatch(this)">Jump</span> and <span class="lyric-phrase" data-matches="climb" onclick="checkMatch(this)">climb</span> and <span class="lyric-phrase" data-matches="glide" onclick="checkMatch(this)">glide</span>,</span>
+        <span class="lyric-line">We <span class="lyric-phrase" data-matches="swim" onclick="checkMatch(this)">swim</span> and <span class="lyric-phrase" data-matches="dive" onclick="checkMatch(this)">dive</span> and <span class="lyric-phrase" data-matches="slide" onclick="checkMatch(this)">slide</span>.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We wear our pride,</span>
+        <span class="lyric-line">the Green and Gold,</span>
+        <span class="lyric-line">and raise our voices bold,</span>
+        <span class="lyric-line">cheering on our champions,</span>
+        <span class="lyric-line">Australia's Green and Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">It's the <span class="lyric-phrase" data-matches="aussie spirit" onclick="checkMatch(this)">Aussie Spirit</span> in me and you,</span>
+        <span class="lyric-line">we play it fair, our hearts and <span class="lyric-phrase" data-matches="aim" onclick="checkMatch(this)">aim</span> are true,</span>
+        <span class="lyric-line">the world will know our <span class="lyric-phrase" data-matches="strength" onclick="checkMatch(this)">strength</span>,</span>
+        <span class="lyric-line">we show we are fair dinkum and true blue.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">So let's Waltzing our <span class="lyric-phrase" data-matches="matildas" onclick="checkMatch(this)">Matildas</span>,</span>
+        <span class="lyric-line">And raise a cheer,</span>
+        <span class="lyric-line">So all can hear,</span>
+        <span class="lyric-line">For the stories to be told,</span>
+        <span class="lyric-line">Of legends young and old,</span>
+        <span class="lyric-line">Who fought for the Green &amp; Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We wear our pride,</span>
+        <span class="lyric-line">the Green and Gold,</span>
+        <span class="lyric-line">and raise our voices bold,</span>
+        <span class="lyric-line">cheering on our champions,</span>
+        <span class="lyric-line">Australia's Green and Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We wear our pride,</span>
+        <span class="lyric-line">Australia's Green and Gold.</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line outro">Oh-o-o-Oh! Oh-o-o-Oh!</span>
+        <span class="lyric-line outro">Let's Waltzing our Matildas…</span>
+        <span class="lyric-line outro">Oh-o-o-Oh! Oh-o-o-Oh!</span>
+        <span class="lyric-line blank"></span>
+
+        <span class="lyric-line">We wear our pride, the Green and Gold.</span>
+        <span class="lyric-line">We wear our pride, the Green and Gold.</span>
+        <span class="lyric-line">We wear our pride, the Green and Gold.</span>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: SUMMER + COMMONWEALTH -->
+    <div>
+      <div class="sport-board" style="margin-bottom:1rem">
+        <div class="board-header summer">☀️ LA 2028 Summer Olympics</div>
+        <div class="board-items">
+          <button class="sport-item" data-team="sw-swimming" onclick="selectSport(this,'sw-swimming')">Swimming</button>
+          <button class="sport-item" data-team="sw-diving" onclick="selectSport(this,'sw-diving')">Diving</button>
+          <button class="sport-item" data-team="sw-athletics" onclick="selectSport(this,'sw-athletics')">Athletics</button>
+          <button class="sport-item" data-team="sw-cycling" onclick="selectSport(this,'sw-cycling')">Cycling</button>
+          <button class="sport-item" data-team="sw-gymnastics" onclick="selectSport(this,'sw-gymnastics')">Gymnastics</button>
+          <button class="sport-item" data-team="sw-basketball" onclick="selectSport(this,'sw-basketball')">Basketball</button>
+          <button class="sport-item" data-team="sw-hockey" onclick="selectSport(this,'sw-hockey')">Field Hockey</button>
+          <button class="sport-item" data-team="sw-tennis" onclick="selectSport(this,'sw-tennis')">Tennis</button>
+          <button class="sport-item" data-team="sw-boxing" onclick="selectSport(this,'sw-boxing')">Boxing</button>
+          <button class="sport-item" data-team="sw-rowing" onclick="selectSport(this,'sw-rowing')">Rowing</button>
+          <button class="sport-item" data-team="sw-climbing" onclick="selectSport(this,'sw-climbing')">Sport Climbing</button>
+          <button class="sport-item" data-team="sw-equestrian" onclick="selectSport(this,'sw-equestrian')">Equestrian</button>
+          <button class="sport-item" data-team="sw-volleyball" onclick="selectSport(this,'sw-volleyball')">Volleyball / Beach Volleyball</button>
+          <button class="sport-item" data-team="sw-badminton" onclick="selectSport(this,'sw-badminton')">Badminton</button>
+          <button class="sport-item" data-team="sw-tabletennis" onclick="selectSport(this,'sw-tabletennis')">Table Tennis</button>
+          <button class="sport-item" data-team="sw-taekwondo" onclick="selectSport(this,'sw-taekwondo')">Taekwondo</button>
+          <button class="sport-item" data-team="sw-fencing" onclick="selectSport(this,'sw-fencing')">Fencing</button>
+          <button class="sport-item" data-team="sw-archery" onclick="selectSport(this,'sw-archery')">Archery</button>
+          <button class="sport-item" data-team="sw-shooting" onclick="selectSport(this,'sw-shooting')">Shooting</button>
+          <button class="sport-item" data-team="sw-wrestling" onclick="selectSport(this,'sw-wrestling')">Wrestling</button>
+          <button class="sport-item" data-team="sw-judo" onclick="selectSport(this,'sw-judo')">Judo</button>
+          <button class="sport-item" data-team="sw-weightlifting" onclick="selectSport(this,'sw-weightlifting')">Weightlifting</button>
+          <button class="sport-item" data-team="sw-triathlon" onclick="selectSport(this,'sw-triathlon')">Triathlon</button>
+          <button class="sport-item" data-team="sw-sailing" onclick="selectSport(this,'sw-sailing')">Sailing</button>
+        </div>
+      </div>
+
+      <div class="sport-board">
+        <div class="board-header commonwealth">🌏 Glasgow 2026 Commonwealth Games</div>
+        <div class="board-items">
+          <button class="sport-item" data-team="cw-athletics" onclick="selectSport(this,'cw-athletics')">Athletics</button>
+          <button class="sport-item" data-team="cw-swimming" onclick="selectSport(this,'cw-swimming')">Swimming</button>
+          <button class="sport-item" data-team="cw-basketball" onclick="selectSport(this,'cw-basketball')">3x3 Basketball</button>
+          <button class="sport-item" data-team="cw-cycling" onclick="selectSport(this,'cw-cycling')">Track Cycling</button>
+          <button class="sport-item" data-team="cw-weightlifting" onclick="selectSport(this,'cw-weightlifting')">Weightlifting / Para Powerlifting</button>
+          <button class="sport-item" data-team="cw-bowls" onclick="selectSport(this,'cw-bowls')">Lawn Bowls / Para Bowls</button>
+          <button class="sport-item" data-team="cw-gymnastics" onclick="selectSport(this,'cw-gymnastics')">Artistic Gymnastics</button>
+          <button class="sport-item" data-team="cw-boxing" onclick="selectSport(this,'cw-boxing')">Boxing</button>
+          <button class="sport-item" data-team="cw-judo" onclick="selectSport(this,'cw-judo')">Judo</button>
+          <button class="sport-item" data-team="cw-netball" onclick="selectSport(this,'cw-netball')">Netball</button>
+        </div>
+      </div>
+
+      <div class="sport-board" style="margin-top:1rem">
+        <div class="board-header" style="background:#888;color:white;">❓ Not at Glasgow 2026</div>
+        <div style="font-size:0.72rem;color:#888;padding:0.4rem 0.8rem;font-style:italic">Previously at Commonwealth Games — not this time. 🥉 Bronze if you find the lyric match!</div>
+        <div class="board-items">
+          <button class="sport-item" data-team="ng-badminton" onclick="selectSport(this,'ng-badminton')">Badminton</button>
+          <button class="sport-item" data-team="ng-beachvolley" onclick="selectSport(this,'ng-beachvolley')">Beach Volleyball</button>
+          <button class="sport-item" data-team="ng-cricket" onclick="selectSport(this,'ng-cricket')">Cricket (T20)</button>
+          <button class="sport-item" data-team="ng-roadcycling" onclick="selectSport(this,'ng-roadcycling')">Cycling — Road</button>
+          <button class="sport-item" data-team="ng-mtbcycling" onclick="selectSport(this,'ng-mtbcycling')">Cycling — Mountain Bike</button>
+          <button class="sport-item" data-team="ng-diving" onclick="selectSport(this,'ng-diving')">Diving</button>
+          <button class="sport-item" data-team="ng-rhythmic" onclick="selectSport(this,'ng-rhythmic')">Gymnastics — Rhythmic</button>
+          <button class="sport-item" data-team="ng-hockey" onclick="selectSport(this,'ng-hockey')">Hockey / Field Hockey</button>
+          <button class="sport-item" data-team="ng-rugby7s" onclick="selectSport(this,'ng-rugby7s')">Rugby Sevens</button>
+          <button class="sport-item" data-team="ng-shooting" onclick="selectSport(this,'ng-shooting')">Shooting</button>
+          <button class="sport-item" data-team="ng-squash" onclick="selectSport(this,'ng-squash')">Squash</button>
+          <button class="sport-item" data-team="ng-tabletennis" onclick="selectSport(this,'ng-tabletennis')">Table Tennis</button>
+          <button class="sport-item" data-team="ng-triathlon" onclick="selectSport(this,'ng-triathlon')">Triathlon</button>
+          <button class="sport-item" data-team="ng-wrestling" onclick="selectSport(this,'ng-wrestling')">Wrestling</button>
+        </div>
+      </div>
+    </div>
+
+      </div>
+
+
+
+  </div>
+</div>
+
+
+  <!-- MOBILE LAYOUT -->
+  <div class="mobile-layout">
+    <div class="mobile-instruction-box">Pick a team or sport then find it in the lyrics to win your first Gold Medal! 🥇</div>
+    <div class="mobile-boards">
+      <div class="mobile-board">
+        <div class="board-header national">🦘 National Teams</div>
+        <div class="board-items" id="mobileTeams"></div>
+      </div>
+      <div class="mobile-board">
+        <div class="board-header commonwealth">🌏 Glasgow 2026</div>
+        <div class="board-items" id="mobileCW"></div>
+      </div>
+      <div class="mobile-board">
+        <div class="board-header summer">☀️ LA 2028 Summer</div>
+        <div class="board-items" id="mobileSW"></div>
+      </div>
+      <div class="mobile-board">
+        <div class="board-header winter">❄️ Milano Cortina</div>
+        <div class="board-items" id="mobileWI"></div>
+      </div>
+      <div class="mobile-board">
+        <div class="board-header" style="background:#888;color:white;">❓ Not at Glasgow</div>
+        <div style="font-size:0.7rem;color:#888;padding:0.3rem 0.6rem;font-style:italic">🥉 Bronze if you find the match!</div>
+        <div class="board-items" id="mobileNG"></div>
+      </div>
+    </div>
+    <div class="swipe-hint">← swipe for more sports →</div>
+    <div class="mobile-lyrics-header" id="mobileLyricsHeader">Full Song Lyrics</div>
+    <div class="mobile-lyrics" id="mobileLyrics"></div>
+  </div>
+
+<!-- TOAST FEEDBACK -->
+<div class="toast" id="toast"></div>
+
+<!-- EMU EASTER EGG -->
+<div class="emu" id="emu" style="right: 2rem;">🦅</div>
+
+<!-- CELEBRATION SCREEN -->
+<div class="celebration" id="celebration">
+  <div style="font-size:5rem;margin-bottom:1rem">🏆</div>
+  <h2>Australia found!</h2>
+  <p>Your class discovered all 92 sporting references.<br>🥇 40 Gold · 🥈 38 Silver · 🥉 14 Bronze<br>Well done, absolute champions!</p>
+  <button onclick="document.getElementById('celebration').classList.remove('show')">Keep exploring</button>
+</div>
+
+<script>
+  const GOLD_MAX = 40;
+  const SILVER_MAX = 38;
+  const BRONZE_MAX = 14;
+  const SYDNEY_MILESTONE = 59;
+
+  let goldFound = 0;
+  let silverFound = 0;
+  let bronzeFound = 0;
+  let selectedSport = null;
+  let selectedBtn = null;
+  let foundMatches = new Set();
+
+  const matchMap = {
+    'kangaroos':        ['marsupials'],
+    'jillaroos':        ['marsupials'],
+    'wallabies':        ['marsupials'],
+    'wallaroos':        ['marsupials'],
+    'boomers':          ['marsupials'],
+    'socceroos':        ['marsupials'],
+    'young-socceroos':  ['marsupials'],
+    'olyroos':          ['marsupials'],
+    'hockeyroos':       ['marsupials'],
+    'volleyroos':       ['marsupials'],
+    'kookaburras':      ['laughing'],
+    'burras':           ['laughing'],
+    'dolphins':         ['swimming mates'],
+    'sharks':           ['swimming mates'],
+    'stingers':         ['swimming mates'],
+    'diamonds':         ['gems'],
+    'opals':            ['gems'],
+    'emeralds':         ['gems'],
+    'steelers':         ['ball'],
+    'gliders':          ['ball'],
+    'rollers':          ['ball'],
+    'aussie-spirit':    ['aussie spirit'],
+    'matildas':         ['matildas'],
+    'cw-athletics':     ['run','throw','jump'],
+    'cw-swimming':      ['swim'],
+    'cw-basketball':    ['throw'],
+    'cw-cycling':       ['ride'],
+    'cw-weightlifting': ['strength'],
+    'cw-bowls':         ['aim'],
+    'cw-gymnastics':    ['strength'],
+    'cw-boxing':        ['strike'],
+    'cw-judo':          ['strength'],
+    'cw-netball':       ['throw'],
+    'sw-archery':       ['aim'],
+    'sw-athletics':     ['run','throw','jump'],
+    'sw-badminton':     ['strike'],
+    'sw-baseball':      ['strike','throw'],
+    'sw-basketball':    ['throw'],
+    'sw-boxing':        ['strike'],
+    'sw-canoe':         ['ride','glide'],
+    'sw-climbing':      ['climb'],
+    'sw-cycling':       ['ride'],
+    'sw-diving':        ['dive'],
+    'sw-equestrian':    ['ride'],
+    'sw-fencing':       ['strike','aim'],
+    'sw-flagfootball':  ['kick','throw'],
+    'sw-gymnastics':    ['strength'],
+    'sw-handball':      ['throw'],
+    'sw-hockey':        ['strike'],
+    'sw-judo':          ['strength'],
+    'sw-lacrosse':      ['run','throw'],
+    'sw-rowing':        ['glide'],
+    'sw-sailing':       ['glide'],
+    'sw-shooting':      ['aim'],
+    'sw-softball':      ['strike','throw'],
+    'sw-swimming':      ['swim'],
+    'sw-tabletennis':   ['strike'],
+    'sw-taekwondo':     ['strike'],
+    'sw-tennis':        ['strike'],
+    'sw-triathlon':     ['swim','run','ride'],
+    'sw-volleyball':    ['strike'],
+    'sw-waterpolo':     ['swim','throw'],
+    'sw-weightlifting': ['strength'],
+    'sw-wrestling':     ['strength'],
+    'wi-alpine':        ['glide','slide'],
+    'wi-biathlon':      ['run','aim'],
+    'wi-bobsleigh':     ['slide'],
+    'wi-crosscountry':  ['glide','run'],
+    'wi-curling':       ['slide'],
+    'wi-figureskate':   ['glide'],
+    'wi-freestyle':     ['jump','glide'],
+    'wi-icehockey':     ['strike','slide'],
+    'wi-luge':          ['slide'],
+    'wi-shorttrack':    ['glide','slide'],
+    'wi-skeleton':      ['slide'],
+    'wi-skijump':       ['jump','glide'],
+    'wi-snowboard':     ['glide','slide'],
+    'wi-speedskate':    ['glide','slide'],
+    'ng-badminton':     ['strike'],
+    'ng-beachvolley':   ['strike'],
+    'ng-cricket':       ['strike'],
+    'ng-diving':        ['dive'],
+    'ng-hockey':        ['strike'],
+    'ng-mtbcycling':    ['ride'],
+    'ng-rhythmic':      ['strength'],
+    'ng-roadcycling':   ['ride'],
+    'ng-rugby7s':       ['kick'],
+    'ng-shooting':      ['aim'],
+    'ng-squash':        ['strike'],
+    'ng-tabletennis':   ['strike'],
+    'ng-triathlon':     ['swim','run','ride'],
+    'ng-wrestling':     ['strength'],
+  };
+
+  function isBronze(sport) { return sport && sport.startsWith('ng-'); }
+  function isGoldEligible(sport) {
+    const goldTeams = ['kangaroos','jillaroos','wallabies','wallaroos','boomers',
+      'socceroos','young-socceroos','olyroos','hockeyroos','volleyroos',
+      'kookaburras','burras','dolphins','sharks','stingers','diamonds','opals',
+      'emeralds','steelers','gliders','rollers','aussie-spirit','matildas'];
+    return goldTeams.includes(sport);
+  }
+
+  function selectSport(btn, sport) {
+    updateMobileHeader('Good choice! Now find where it hides in the lyrics 👆');
+    if (sport === 'emus') {
+      showToast('🦅 The Emus are missing from the song! No medal for them... yet!', false, 3000);
+      showEmu();
+      return;
     }
+    if (selectedBtn) selectedBtn.classList.remove('selected');
+    if (selectedBtn === btn) { selectedSport = null; selectedBtn = null; updateInstruction(); return; }
+    selectedBtn = btn;
+    selectedSport = sport;
+    btn.classList.add('selected');
+    updateInstruction(`Good choice! Now find where it hides in the lyrics 👉`);
+  }
+
+  function checkMatch(phraseEl) {
+    if (!selectedSport) {
+      showToast('👆 Pick a team or sport from the list first!', false);
+      phraseEl.classList.add('highlighted');
+      setTimeout(() => phraseEl.classList.remove('highlighted'), 800);
+      return;
+    }
+    const matches = matchMap[selectedSport] || [];
+    const phraseZone = phraseEl.dataset.matches ? phraseEl.dataset.matches.toLowerCase().trim() : '';
+    const isMatch = matches.some(m => phraseZone === m.toLowerCase().trim());
+
+    if (isMatch) {
+      const key = selectedSport + '::' + phraseEl.dataset.matches;
+      if (!foundMatches.has(key)) {
+        foundMatches.add(key);
+        phraseEl.classList.add('found');
+        if (selectedBtn) { selectedBtn.classList.remove('selected'); selectedBtn.classList.add('found'); }
+
+        const bronze = isBronze(selectedSport);
+        const gold = !bronze && (isGoldEligible(selectedSport) || goldFound < GOLD_MAX);
+        const silver = !bronze && !gold;
+
+        if (bronze) {
+          bronzeFound++;
+          addMedal('bronze');
+          showToast('🥉 Bronze! That sport used to be at the Commonwealth Games!', true);
+        } else if (gold) {
+          goldFound++;
+          addMedal('gold');
+          showToast('🥇 Gold medal! Great find!', true);
+        updateMobileHeader('🥇 Gold medal! Pick another team or sport to keep going.');
+        } else {
+          silverFound++;
+          addMedal('silver');
+          showToast('🥈 Silver medal! Excellent work!', true);
+        }
+
+        updateCounters();
+        checkMilestones();
+        updateInstruction('Excellent! Pick another team or sport to keep going.');
+      } else {
+        showToast('✅ Already found that one! Try another.', true);
+      }
+      selectedSport = null;
+      selectedBtn = null;
+    } else {
+      phraseEl.classList.add('wrong');
+      setTimeout(() => phraseEl.classList.remove('wrong'), 600);
+      showToast('❌ Not quite — try a different line in the lyrics!', false);
+      updateMobileHeader('Not quite — try a different line in the lyrics!');
+    }
+  }
+
+  function medal(type) {
+    const configs = {
+      gold:   { ribbon: '#00843D', ribbonD: '#006830', disc: '#FFD700', discD: '#FFC200', text: '#7a5000' },
+      silver: { ribbon: '#888',    ribbonD: '#666',    disc: '#C0C0C0', discD: '#A8A8A8', text: '#555'    },
+      bronze: { ribbon: '#a07040', ribbonD: '#7a5000', disc: '#cd7f32', discD: '#b8690a', text: '#5a3000' },
+    };
+    const c = configs[type] || configs.gold;
+    return `<svg width="28" height="34" viewBox="0 0 28 34" style="flex-shrink:0;animation:pop 0.3s ease">
+      <rect x="10" y="0" width="8" height="10" rx="2" fill="${c.ribbon}"/>
+      <rect x="8" y="5" width="12" height="3" rx="1" fill="${c.ribbonD}"/>
+      <circle cx="14" cy="23" r="10" fill="${c.disc}"/>
+      <circle cx="14" cy="23" r="7" fill="${c.discD}"/>
+      <text x="14" y="27" text-anchor="middle" font-size="8" font-weight="bold" fill="${c.text}">★</text>
+    </svg>`;
+  }
+
+  function addMedal(type) {
+    const row = document.getElementById('medalRow');
+    if (goldFound + silverFound + bronzeFound === 1) row.innerHTML = '';
+    const span = document.createElement('span');
+    span.innerHTML = medal(type);
+    row.appendChild(span);
+  }
+
+  function updateCounters() {
+    document.getElementById('goldCount').textContent = goldFound;
+    document.getElementById('silverCount').textContent = silverFound;
+    document.getElementById('bronzeCount').textContent = bronzeFound;
+  }
+
+  function checkMilestones() {
+    const total = goldFound + silverFound + bronzeFound;
+    if (total === SYDNEY_MILESTONE) {
+      showSydneyPopup();
+    }
+    if (goldFound >= GOLD_MAX && silverFound >= SILVER_MAX && bronzeFound >= BRONZE_MAX) {
+      setTimeout(() => document.getElementById('celebration').classList.add('show'), 800);
+    }
+  }
+
+  function showSydneyPopup() {
+    const popup = document.createElement('div');
+    popup.style.cssText = `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      background:white;border:3px solid #FFD700;border-radius:16px;padding:2rem;
+      text-align:center;z-index:300;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,0.3);`;
+    popup.innerHTML = `
+      <div style="font-size:3rem;margin-bottom:0.5rem">🏅</div>
+      <div style="font-size:1.3rem;font-weight:700;color:#00843D;margin-bottom:0.5rem">You've won more medals than Australia at the Sydney Olympics!!!</div>
+      <div style="font-size:0.9rem;color:#666;margin-bottom:1rem">Australia's record Olympic haul was 58 medals at Sydney 2000. Your class just beat it!</div>
+      <button onclick="this.parentElement.remove()" style="background:#00843D;color:white;border:none;padding:0.6rem 1.5rem;border-radius:99px;font-size:1rem;cursor:pointer;font-weight:600">Keep going! 🚀</button>`;
+    document.body.appendChild(popup);
+  }
+
+  function showToast(msg, good, dur) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (good === false ? ' wrong' : '');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), dur || 2000);
+  }
+
+  function showEmu() {
+    const emu = document.getElementById('emu');
+    emu.classList.add('visible');
+    setTimeout(() => emu.classList.remove('visible'), 4000);
+  }
+
+  function updateInstruction(msg) {
+    document.getElementById('instruction').textContent = msg || '👆 First, click a team or sport from the lists. Then find where it hides in the lyrics below.';
+  }
+
+  document.getElementById('emu').addEventListener('click', () => {
+    showToast("🦅 That's me! The Emus! Touch Football! We got LEFT OUT!", false, 3000);
+  });
+
+  // === MOBILE JS ===
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function setupMobile() {
+    if (!isMobile()) return;
+    // Clone national teams
+    var src = document.getElementById('boardNational');
+    var tgt = document.getElementById('mobileTeams');
+    if (src && tgt) tgt.innerHTML = src.innerHTML;
+    // Clone CW
+    var btn = document.querySelector('[data-team="cw-athletics"]');
+    if (btn) { var p = btn.closest('.board-items'); if (p) document.getElementById('mobileCW').innerHTML = p.innerHTML; }
+    // Clone Summer
+    btn = document.querySelector('[data-team="sw-archery"]');
+    if (btn) { p = btn.closest('.board-items'); if (p) document.getElementById('mobileSW').innerHTML = p.innerHTML; }
+    // Clone Winter
+    btn = document.querySelector('[data-team="wi-alpine"]');
+    if (btn) { p = btn.closest('.board-items'); if (p) document.getElementById('mobileWI').innerHTML = p.innerHTML; }
+    // Clone Not at Glasgow
+    btn = document.querySelector('[data-team="ng-badminton"]');
+    if (btn) { p = btn.closest('.board-items'); if (p) document.getElementById('mobileNG').innerHTML = p.innerHTML; }
+    // Clone lyrics
+    var lyrics = document.getElementById('lyricsBody');
+    var mLyrics = document.getElementById('mobileLyrics');
+    if (lyrics && mLyrics) mLyrics.innerHTML = lyrics.innerHTML;
+  }
+
+  function updateMobileHeader(msg) {
+    var h = document.getElementById('mobileLyricsHeader');
+    if (h) h.textContent = msg || 'Full Song Lyrics';
+  }
+
+  window.addEventListener('DOMContentLoaded', setupMobile);
+</script>
+
+<style>
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<style>
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+
+  <!-- SHARE MODAL -->
+  <div id="shareModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:flex-end;justify-content:center;">
+    <div style="background:white;border-radius:16px 16px 0 0;padding:1.5rem;width:100%;max-width:600px;animation:slideUp 0.3s ease;">
+      <div style="text-align:center;margin-bottom:1rem;">
+        <div style="font-size:1.1rem;font-weight:600;color:#2c2c2c;margin-bottom:0.25rem;">Share the spark ⚡</div>
+        <div style="font-size:0.85rem;color:#999;">christopherdc.com.au</div>
+      </div>
+      <div id="shareQR" style="text-align:center;margin-bottom:1rem;min-height:140px;"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-bottom:0.75rem;">
+        <button onclick="shareVia('whatsapp')" style="background:#25D366;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">WhatsApp</button>
+        <button onclick="shareVia('facebook')" style="background:#1877F2;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Facebook</button>
+        <button onclick="shareVia('sms')" style="background:#00843D;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">SMS</button>
+        <button onclick="shareVia('twitter')" style="background:#000;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">X / Twitter</button>
+        <button onclick="shareVia('copy')" id="copyBtn" style="background:#666;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Copy Link</button>
+        <button onclick="shareVia('native')" style="background:#ED8F04;color:white;border:none;border-radius:10px;padding:0.7rem 0.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;">More...</button>
+      </div>
+      <button onclick="bringLightningHome()" id="a2hsBtn" style="width:100%;background:#2c2c2c;color:white;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;font-weight:600;cursor:pointer;margin-bottom:0.6rem;">⚡ Bring the lightning home</button>
+      <div id="a2hsInstructions" style="display:none;background:#f9f8f4;border-radius:8px;padding:0.75rem;margin-bottom:0.6rem;font-size:0.82rem;color:#555;text-align:center;">Tap <strong>Share</strong> then <strong>"Add to Home Screen"</strong> to bring the lightning home 📱</div>
+      <button onclick="closeShareModal()" style="width:100%;background:#f5f5f5;border:none;border-radius:10px;padding:0.75rem;font-size:0.9rem;color:#666;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+    @keyframes flashGold { 0%,100% { box-shadow:none; } 50% { box-shadow:0 0 40px 15px rgba(255,215,0,0.7); } }
+    #lightningBanner.flash { animation:flashGold 0.4s ease; }
+  </style>
+
+  <script>
+    var SHARE_URL = 'https://christopherdc.com.au';
+    var SHARE_TEXT = 'Christopher DC — Australian Sporting Anthems & Rock Ballads. Check this out!';
+    var deferredA2HS = null;
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredA2HS = e;
+    });
+
+    function shareLightning() {
+      // Vibrate
+      if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      // Swap to green/gold lightning
+      var img = document.getElementById('lightningImg');
+      if (img) { img.src = 'christopher_dc_GIF_struck.webp'; }
+      // Flash gold
+      var banner = document.getElementById('lightningBanner');
+      banner.classList.add('flash');
+      setTimeout(function() { banner.classList.remove('flash'); }, 400);
+      // Thunder
+      playThunder();
+      // Generate QR and show modal
+      generateQR();
+      document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+      // Revert banner
+      var img = document.getElementById('lightningImg');
+      if (img) { img.src = 'christopher_dc_GIF.webp'; }
+    }
+
+    function shareVia(platform) {
+      var url = encodeURIComponent(SHARE_URL);
+      var text = encodeURIComponent(SHARE_TEXT);
+      if (platform === 'whatsapp') window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+      else if (platform === 'facebook') window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+      else if (platform === 'sms') window.open('sms:?body=' + text + '%20' + url);
+      else if (platform === 'twitter') window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
+      else if (platform === 'copy') {
+        navigator.clipboard.writeText(SHARE_URL).then(function() {
+          var btn = document.getElementById('copyBtn');
+          btn.textContent = 'Copied! ✓';
+          setTimeout(function() { btn.textContent = 'Copy Link'; }, 2000);
+        });
+        return;
+      }
+      else if (platform === 'native' && navigator.share) {
+        navigator.share({ title: 'Christopher DC', text: SHARE_TEXT, url: SHARE_URL });
+        closeShareModal();
+        return;
+      }
+    }
+
+    function bringLightningHome() {
+      if (deferredA2HS) {
+        deferredA2HS.prompt();
+        deferredA2HS.userChoice.then(function(r) {
+          if (r.outcome === 'accepted') document.getElementById('a2hsBtn').textContent = '⚡ Lightning delivered!';
+          deferredA2HS = null;
+        });
+      } else {
+        var inst = document.getElementById('a2hsInstructions');
+        inst.style.display = inst.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function generateQR() {
+      var qrDiv = document.getElementById('shareQR');
+      if (qrDiv.innerHTML.trim()) return;
+      var script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      script.onload = function() {
+        qrDiv.innerHTML = '';
+        new QRCode(qrDiv, { text: SHARE_URL, width: 140, height: 140, colorDark: '#00843D', colorLight: '#ffffff' });
+      };
+      document.head.appendChild(script);
+    }
+
+    function playThunder() {
+      try {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        var buf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 2);
+        }
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        var gain = ctx.createGain();
+        gain.gain.setValueAtTime(1.5, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
+        var filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 180;
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        src.start();
+      } catch(e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('shareModal').addEventListener('click', function(e) {
+        if (e.target === this) closeShareModal();
+      });
+    });
   </script>
-  
 </body>
 </html>
