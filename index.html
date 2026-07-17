@@ -390,7 +390,7 @@
     <div style="position:relative;width:100%;overflow:hidden;cursor:pointer;" onclick="shareLightning()" id="lightningBanner">
       <img id="lightningImg" src="christopher_dc_GIF.webp" alt="Christopher DC" style="width:100%;height:auto;display:block;">
     </div>
-    <div style="text-align:center;padding:0.4rem 0;font-size:1rem;font-weight:600;color:#cc0000;letter-spacing:0.01em;white-space:nowrap;">⚡ Touch the lightning to share the spark with others</div>
+    <div style="text-align:center;padding:0.4rem 0;font-size:1rem;font-weight:600;color:#cc0000;letter-spacing:0.01em;white-space:nowrap;">⚡ Touch the lightning - share the spark</div>
   </header>
   
   <main>
@@ -755,7 +755,18 @@
 
     function shareLightning() {
       // Immediately: vibrate must happen within user gesture
-      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+      var vibeStatus = 'navigator.vibrate is ' + (typeof navigator.vibrate) + '. ';
+      if (navigator.vibrate) {
+        var vibeResult = navigator.vibrate([150, 80, 150]);
+        vibeStatus += 'Call returned: ' + vibeResult;
+      } else {
+        vibeStatus += 'API not present on this browser.';
+      }
+      var vibeDebug = document.createElement('div');
+      vibeDebug.textContent = '🔧 ' + vibeStatus;
+      vibeDebug.style.cssText = 'position:fixed;top:8px;left:8px;right:8px;background:#000;color:#0f0;font-size:11px;font-family:monospace;padding:8px;border-radius:6px;z-index:99999;text-align:center;';
+      document.body.appendChild(vibeDebug);
+      setTimeout(function(){ vibeDebug.remove(); }, 6000);
       // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
@@ -831,9 +842,17 @@
     function playThunder() {
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var vol = 6, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
+        var vol = 12, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
         var effectiveGap = (gapMs / 1000) * (1 - overlapPct);
         var now = ctx.currentTime;
+        // Shared limiter: catches peaks so the doubled volume doesn't just clip/distort
+        var compressor = ctx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-12, now);
+        compressor.knee.setValueAtTime(6, now);
+        compressor.ratio.setValueAtTime(12, now);
+        compressor.attack.setValueAtTime(0.003, now);
+        compressor.release.setValueAtTime(0.25, now);
+        compressor.connect(ctx.destination);
         for (var i = 0; i < rolls; i++) {
           (function(startTime) {
             var buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
@@ -856,7 +875,7 @@
             src.connect(filter);
             filter.connect(shelf);
             shelf.connect(gain);
-            gain.connect(ctx.destination);
+            gain.connect(compressor);
             src.start(startTime);
           })(now + i * effectiveGap);
         }
@@ -1118,7 +1137,18 @@
 
     function shareLightning() {
       // Immediately: vibrate must happen within user gesture
-      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+      var vibeStatus = 'navigator.vibrate is ' + (typeof navigator.vibrate) + '. ';
+      if (navigator.vibrate) {
+        var vibeResult = navigator.vibrate([150, 80, 150]);
+        vibeStatus += 'Call returned: ' + vibeResult;
+      } else {
+        vibeStatus += 'API not present on this browser.';
+      }
+      var vibeDebug = document.createElement('div');
+      vibeDebug.textContent = '🔧 ' + vibeStatus;
+      vibeDebug.style.cssText = 'position:fixed;top:8px;left:8px;right:8px;background:#000;color:#0f0;font-size:11px;font-family:monospace;padding:8px;border-radius:6px;z-index:99999;text-align:center;';
+      document.body.appendChild(vibeDebug);
+      setTimeout(function(){ vibeDebug.remove(); }, 6000);
       // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
@@ -1194,9 +1224,17 @@
     function playThunder() {
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var vol = 6, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
+        var vol = 12, rolls = 5, gapMs = 150, overlapPct = 0.20, freq = 180, dur = 3.5;
         var effectiveGap = (gapMs / 1000) * (1 - overlapPct);
         var now = ctx.currentTime;
+        // Shared limiter: catches peaks so the doubled volume doesn't just clip/distort
+        var compressor = ctx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-12, now);
+        compressor.knee.setValueAtTime(6, now);
+        compressor.ratio.setValueAtTime(12, now);
+        compressor.attack.setValueAtTime(0.003, now);
+        compressor.release.setValueAtTime(0.25, now);
+        compressor.connect(ctx.destination);
         for (var i = 0; i < rolls; i++) {
           (function(startTime) {
             var buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
@@ -1219,7 +1257,7 @@
             src.connect(filter);
             filter.connect(shelf);
             shelf.connect(gain);
-            gain.connect(ctx.destination);
+            gain.connect(compressor);
             src.start(startTime);
           })(now + i * effectiveGap);
         }
