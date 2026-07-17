@@ -755,18 +755,7 @@
 
     function shareLightning() {
       // Immediately: vibrate must happen within user gesture
-      var vibeStatus = 'navigator.vibrate is ' + (typeof navigator.vibrate) + '. ';
-      if (navigator.vibrate) {
-        var vibeResult = navigator.vibrate([150, 80, 150]);
-        vibeStatus += 'Call returned: ' + vibeResult;
-      } else {
-        vibeStatus += 'API not present on this browser.';
-      }
-      var vibeDebug = document.createElement('div');
-      vibeDebug.textContent = '🔧 ' + vibeStatus;
-      vibeDebug.style.cssText = 'position:fixed;top:8px;left:8px;right:8px;background:#000;color:#0f0;font-size:11px;font-family:monospace;padding:8px;border-radius:6px;z-index:99999;text-align:center;';
-      document.body.appendChild(vibeDebug);
-      setTimeout(function(){ vibeDebug.remove(); }, 6000);
+      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
       // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
@@ -1137,18 +1126,7 @@
 
     function shareLightning() {
       // Immediately: vibrate must happen within user gesture
-      var vibeStatus = 'navigator.vibrate is ' + (typeof navigator.vibrate) + '. ';
-      if (navigator.vibrate) {
-        var vibeResult = navigator.vibrate([150, 80, 150]);
-        vibeStatus += 'Call returned: ' + vibeResult;
-      } else {
-        vibeStatus += 'API not present on this browser.';
-      }
-      var vibeDebug = document.createElement('div');
-      vibeDebug.textContent = '🔧 ' + vibeStatus;
-      vibeDebug.style.cssText = 'position:fixed;top:8px;left:8px;right:8px;background:#000;color:#0f0;font-size:11px;font-family:monospace;padding:8px;border-radius:6px;z-index:99999;text-align:center;';
-      document.body.appendChild(vibeDebug);
-      setTimeout(function(){ vibeDebug.remove(); }, 6000);
+      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
       // Immediately: swap banner to green/gold lightning
       var img = document.getElementById('lightningImg');
       if (img) img.src = 'christopher_dc_GIF_struck.webp';
