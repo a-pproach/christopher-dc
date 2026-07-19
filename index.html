@@ -8,6 +8,15 @@
   <meta property="og:description" content="Four anthems. One song that hides five national teams. Streaming everywhere.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#00843D">
+
+  <!-- Home screen icons (iOS + Android/PWA) -->
+  <link rel="apple-touch-icon" href="cdc-apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="cdc-icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="cdc-icon-512.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Christopher DC">
   <title>Christopher DC — Australian Sporting Anthems</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -760,6 +769,10 @@
   </style>
 
   <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function() {});
+    }
+
     var SHARE_URL = 'https://christopherdc.com.au';
     var SHARE_TEXT = 'Christopher DC - Australian Sporting Anthems & Rock Ballads. Check this out!';
     var deferredA2HS = null;
