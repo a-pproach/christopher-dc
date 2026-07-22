@@ -3,22 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Christopher DC — Australian sporting anthems and rock ballads. Streaming on Spotify, Apple Music, YouTube.">
-  <meta property="og:title" content="Christopher DC — Australian Sporting Anthems">
-  <meta property="og:description" content="Four anthems. One song that hides five national teams. Streaming everywhere.">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Christopher DC — Australian singer-songwriter and high baritone. Sporting anthems, rock ballads, alt-country and pop. Streaming on Spotify, Apple Music and YouTube.">
+  <meta property="og:title" content="Christopher DC — Australian Singer-Songwriter | Sporting Anthems, Rock Ballads & More">
+  <meta property="og:description" content="Prolific Australian singer-songwriter and high baritone. Sporting anthems, rock ballads, alt-country and pop — with a gift for melodic hooks and choruses. Streaming everywhere.">
+  <meta property="og:type" content="music.musician">
   <meta name="theme-color" content="#00843D">
+  <title>Christopher DC — Australian Singer-Songwriter | Sporting Anthems, Rock Ballads &amp; More</title>
 
-  <!-- Home screen icons (iOS + Android/PWA) -->
-  <link rel="apple-touch-icon" href="cdc-apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="cdc-icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="cdc-icon-512.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Christopher DC">
-  <title>Christopher DC — Australian Sporting Anthems</title>
-  
+  <!-- ============ STRUCTURED DATA (JSON-LD) — Artist identity + released recordings ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MusicGroup",
+        "@id": "https://christopherdc.com.au/#artist",
+        "name": "Christopher DC",
+        "legalName": "Christopher David Carroll",
+        "description": "Christopher DC is a prolific, versatile Australian singer-songwriter and high baritone — a 30-year poet turned recording artist. Known for sporting anthems, rock ballads, and thematic concept albums, with a particular gift for melodic pop hooks and memorable choruses across pop and soft rock.",
+        "genre": ["Rock", "Sporting anthem", "Rock ballad", "Alt-country", "Pop", "Soft rock", "Singer-songwriter"],
+        "url": "https://christopherdc.com.au",
+        "foundingLocation": { "@type": "Place", "name": "Brisbane, Queensland, Australia" },
+        "sameAs": [
+          "https://open.spotify.com/artist/5cufZRrSCZVToSJOj68mpA",
+          "https://www.youtube.com/@ChristopherDCmusic",
+          "https://www.instagram.com/christopherdcmusic",
+          "https://www.tiktok.com/@christopherdcmusic",
+          "https://www.facebook.com/christopherdcmusic"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "name": "We Wear Our Pride",
+        "byArtist": { "@id": "https://christopherdc.com.au/#artist" },
+        "genre": "Sporting anthem",
+        "description": "Australia's sporting anthem — a song fit for every event Australia and Australians compete in, with national teams woven poetically through the lyrics.",
+        "url": "https://open.spotify.com/track/15xz0zfMP6OxHGgRrLdBuN",
+        "sameAs": [
+          "https://open.spotify.com/track/15xz0zfMP6OxHGgRrLdBuN",
+          "https://youtu.be/uhvWFeAsQD0"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "name": "Cheerin' at the G",
+        "alternateName": "Roarin' and Cheerin'",
+        "byArtist": { "@id": "https://christopherdc.com.au/#artist" },
+        "genre": "Sporting anthem",
+        "description": "An MCG-scale sporting anthem — any stadium, any code, the sound of Australia cheering its heroes.",
+        "url": "https://open.spotify.com/track/1izB1G3cNvQBYPPRf9fYro",
+        "sameAs": [
+          "https://open.spotify.com/track/1izB1G3cNvQBYPPRf9fYro",
+          "https://youtu.be/g0Vbqc31Aeg"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "name": "Lang Park Loud",
+        "byArtist": { "@id": "https://christopherdc.com.au/#artist" },
+        "genre": "Sporting anthem",
+        "description": "A Suncorp Stadium anthem — Brisbane roars, the song of a city that lives and breathes rugby league.",
+        "url": "https://open.spotify.com/track/5TECicfRcR0izBix5rz9Rr",
+        "sameAs": [
+          "https://open.spotify.com/track/5TECicfRcR0izBix5rz9Rr",
+          "https://youtu.be/nly7ZnQTCbY"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "name": "We're the Devils",
+        "byArtist": { "@id": "https://christopherdc.com.au/#artist" },
+        "genre": "Club song",
+        "description": "A Tasmania AFL club song — roar for the newest team, the spirit of Tasmania, raw and fearless.",
+        "url": "https://youtu.be/7aWg1qxu29s",
+        "sameAs": ["https://youtu.be/7aWg1qxu29s"]
+      }
+    ]
+  }
+  </script>
+  <!-- ============ END STRUCTURED DATA ============ -->
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
@@ -683,7 +747,7 @@
           
           <p>My first AFL Grand Final was 1972. Carlton v Richmond. 112,393 people roaring. I was there. I've been there for 30 Grand Finals in a row since — through eligibility criteria shifts, family logistics, work complications. My dad hasn't missed one since 1949. My brother and sister since 1972. No matter who's playing, it's our family pilgrimage.</p>
           
-          <p>"When a hundred thousand voices come crashing into you" — that line from "Roarin' and Cheerin'" is literal. I've lived it.</p>
+          <p>"When a hundred thousand voices come crashing into you" — that line from "Cheerin' at the G" is literal. I've lived it.</p>
           
           <p>10 years ago I moved to a balcony literally 400m from the very centre of Suncorp Stadium itself. A venue that hosts rugby league, rugby union, soccer, and more — multiple codes, different scale (52,000, not 112,000), but still that same essential roar. And for decades, I felt the same absence. Crowds screaming, passion at full volume, and no song. No anthem. Nothing to sing back.</p>
           
@@ -691,7 +755,7 @@
           
           <p>So I wrote it. The anthems. The treasures hidden inside the lyrics. The national teams woven into five-word lines. The gap I'd felt since 1972, finally filled.</p>
           
-          <p>Then I kept writing. More songs to sing with a high baritone, catchy hooks and choruses wrapped around poetic verses — that seems to be my thing. Hence the albums in production: no less than four of them, with more steadily being filled. <em>Living on the Rim</em> featuring the anthems and additional Australian themed tracks. <em>Cowboys n Rockets</em>. <em>Friends & Lovers</em>. <em>Club Noir</em>.</p>
+          <p>Then I kept writing. More songs to sing with a high baritone, catchy hooks and choruses wrapped around poetic verses — that seems to be my thing. And not just anthems: rock ballads, alt-country, and pop songs built around a melody you can't shake. A versatile songwriter, is how I'd put it — the anthems are where it started, not where it stops. Hence the albums in production: no less than four of them, with more steadily being filled. <em>Living on the Rim</em> featuring the anthems and additional Australian themed tracks. <em>Cowboys n Rockets</em>. <em>Friends & Lovers</em>. <em>Club Noir</em>.</p>
           
           <p>Keep popping back for updates.</p>
         </div>
@@ -769,10 +833,6 @@
   </style>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(function() {});
-    }
-
     var SHARE_URL = 'https://christopherdc.com.au';
     var SHARE_TEXT = 'Christopher DC - Australian Sporting Anthems & Rock Ballads. Check this out!';
     var deferredA2HS = null;
